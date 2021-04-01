@@ -1,10 +1,9 @@
 import React from 'react';
 import { Nav, Navbar, Image } from 'react-bootstrap';
 import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
+import styled from 'styled-components';
 import Menu from './Menu';
-import Logo from '../../../assets/images/logo-png-sm.png';
-import { HeaderStyled } from './headerStyled';
-import { MenuStyledNavLink } from './MenuStyled';
+import Logo from '../../assets/images/logo-png-sm.png';
 
 const Header = () => (
   <HeaderStyled bg="light" border="rounded" expand="lg">
@@ -32,3 +31,22 @@ const Header = () => (
 );
 
 export default Header;
+
+const HeaderStyled = styled(Navbar)`
+  font-size: 1.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
+`;
+
+const MenuStyledNavLink = styled(Nav.Link)`
+  color: #3B3A3A!important;
+  padding-right: .5rem!important;
+  padding-left: .5rem!important;
+  transition: 0.3s ease-out;
+  &:hover {
+    color: ${(props) => props.twitter && '#1DA1F2!important'
+      || props.facebook && '#3b5998!important'
+      || props.instagram && '#E1306C!important'
+};
+  }
+`;

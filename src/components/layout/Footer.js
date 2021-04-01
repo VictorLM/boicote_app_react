@@ -1,5 +1,5 @@
 import React from 'react';
-import { FooterStyled } from './footerStyled';
+import styled from 'styled-components';
 
 const Footer = () => (
   <FooterStyled className="">
@@ -8,3 +8,8 @@ const Footer = () => (
 );
 
 export default Footer;
+
+const FooterStyled = styled.footer`
+  text-align: center;
+  padding-bottom: .01em;
+`;
