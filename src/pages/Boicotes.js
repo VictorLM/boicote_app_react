@@ -1,39 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { Row, Col } from 'react-bootstrap';
-
 import axios from '../config/axios';
 import visitanteCheck from '../config/visitanteCheck';
 import BoicotesMultiplos from '../components/Boicote';
+import LoadingGrande from '../components/LoadingGrande';
 
 function Boicotes() {
+  // BOICOTE
   const [boicotes, setBoicotes] = useState([]);
-  const [isError, setIsError] = useState(false);
+  const [loadingBoicotes, setLoadingBoicotes] = useState(true);
+  // VOTOS
+  const [votos, setVotos] = useState([]);
 
-  useEffect(() => {
-    async function getData() {
-      try {
-        const response = await axios.get('/boicotes');
+  async function getBoicotes() {
+    await axios.get('/boicotes', { withCredentials: false })
+      .then((response) => {
         setBoicotes(response.data);
-      } catch (error) {
-        setIsError(error);
-      }
-    }
-    // eslint-disable-next-line
-    console.log(isError); // TODO
-    getData();
+      })
+      .catch((error) => {
+        setLoadingBoicotes(false);
+        // eslint-disable-next-line
+        console.log(error); // TODO
+      })
+      .then(() => {
+        // always executed
+      });
+  }
+
+  async function getVotos() {
+    await axios.get('/visitantes/votos', { withCredentials: true })
+      .then((response) => {
+        setVotos(response.data);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line
+        console.log(error); // TODO
+      })
+      .then(() => {
+        // always executed
+      });
+  }
+
+  useEffect(async () => {
+    setLoadingBoicotes(true);
+    await getBoicotes();
+    await getVotos();
+    setLoadingBoicotes(false);
+    // CHECA COOKIE VISITANTEID
+    await visitanteCheck();
   }, []);
 
-  // CHECA COOKIE VISITANTEID
-  useEffect(() => {
-    visitanteCheck();
-  }, []);
+  if (loadingBoicotes) {
+    return (
+      <>
+        <hr />
+        <h1 className="text-center">Boicotes</h1>
+        <hr />
+        <LoadingGrande />
+      </>
+    );
+  }
 
   if (boicotes.length < 1) {
     return (
       <>
         <hr />
-        <Title id="boicotes-h1">Boicotes</Title>
+        <h1 className="text-center">Boicotes</h1>
         <hr />
         <h4 className="text-center">Não há boicotes cadastrados para exibir.</h4>
       </>
@@ -41,25 +72,23 @@ function Boicotes() {
   }
 
   return (
-    <Row>
-      <Col>
-        <hr />
-        <Title id="boicotes-h1">Boicotes</Title>
-        <hr />
-        {boicotes.map((boicote) => (
-          <BoicotesMultiplos key={String(boicote.id)} boicote={boicote} boicoteUnico={false} />
-        ))}
-      </Col>
-    </Row>
+    <div className="">
+      <hr />
+      <h1 className="text-center">Boicotes</h1>
+      <hr />
+      {boicotes.map((boicote) => (
+        <BoicotesMultiplos
+          key={String(boicote.id)}
+          boicote={boicote}
+          boicoteUnico={false}
+          voto={votos.findIndex((voto) => voto.boicoteId === boicote.id) !== -1
+            ? Number(votos[votos.findIndex((voto) => voto.boicoteId === boicote.id)].cima)
+            : null}
+        />
+      ))}
+    </div>
+
   );
 }
 
 export default Boicotes;
-
-// Styled Components
-
-const Title = styled.h1`
-  text-align: center;
-  font-family: 'Syne Mono', monospace!important;
-  font-weight: bold;
-`;

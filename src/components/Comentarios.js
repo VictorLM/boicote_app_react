@@ -1,35 +1,85 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import { FaCalendar, FaFlag } from 'react-icons/fa';
+import { isEmail } from 'validator';
+import { toast } from 'react-toastify';
+
 import axios from '../config/axios';
+import ModalDenunciaForm from './ModalDenunciaForm';
 
-function Comentarios({ boicoteId }) {
-  const [comentarios, setComentarios] = useState([]);
-  const [isError, setIsError] = useState(false);
+function Comentarios({ comentarios }) {
+  const [comentarioIdDenuncia, setComentarioIdDenuncia] = useState('');
+  // MODAL DENUNCIAR
+  const [modalDenunciaFormShow, setModalDenunciaFormShow] = useState(false);
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [texto, setTexto] = useState('');
+  const [loadingDenunciar, setLoadingDenunciar] = useState(false);
 
-  useEffect(() => {
-    if (!boicoteId) return;
-    async function getData() {
-      try {
-        const response = await axios.get(`/comentarios/${boicoteId}`);
-        setComentarios(response.data);
-      } catch (error) {
-        setIsError(error);
-      }
+  async function denunciar(e) {
+    e.preventDefault();
+    // VALIDANDO FORM
+    let formErrors = false;
+
+    if (nome.length < 3 || nome.length > 255) {
+      formErrors = true;
+      toast.error('Nome deve ter entre 3 e 255 caracteres');
     }
-    // eslint-disable-next-line
-    console.log(isError); // TODO
-    getData();
-  }, []);
+    if (!isEmail(email)) {
+      formErrors = true;
+      toast.error('E-mail inválido.');
+    }
+    if (texto.length < 3 || texto.length > 255) {
+      formErrors = true;
+      toast.error('Motivo deve ter entre 3 e 255 caracteres');
+    }
+    if (formErrors) return;
+
+    const body = {
+      nome,
+      email,
+      texto,
+    };
+
+    setLoadingDenunciar(true);
+
+    // ENVIANDO REQUEST PARA API
+    await axios.post(`/denuncias/comentario/${comentarioIdDenuncia}`, body, { withCredentials: true })
+      .then((response) => { //eslint-disable-line
+        setModalDenunciaFormShow(false);
+        setLoadingDenunciar(false);
+        // TODO - LOADING NO BOTÃO
+        toast.success('Denúncia enviada com sucesso. Obrigado por reportar.');
+      })
+      .catch((error) => {
+        setModalDenunciaFormShow(false);
+        setLoadingDenunciar(false);
+        // eslint-disable-next-line
+        console.log(error);
+        toast.error('Erro interno. Por favor, tente novamente mais tarde.');
+      })
+      .then(() => {
+      // always executed
+      });
+  }
 
   if (comentarios.length < 1) {
-    return <h4 className="text-center">Não há comentários para exibir.</h4>;
+    return <h5 className="text-center">Não há comentários cadastrados. Seja o primeiro a comentar!</h5>;
   }
 
   return (
     <>
+      <ModalDenunciaForm
+        loading={loadingDenunciar}
+        show={modalDenunciaFormShow}
+        onHide={() => setModalDenunciaFormShow(false)}
+        setNome={setNome}
+        setEmail={setEmail}
+        setTexto={setTexto}
+        denunciar={denunciar}
+      />
+
       {comentarios.map((comentario) => (
 
         <Card key={String(comentario.id)} className="m-3" bg="secondary" border="dark">
@@ -57,11 +107,14 @@ function Comentarios({ boicoteId }) {
               </Span>
             </div>
             <div className="float-right">
-              <ComentarioLink to={`/comentarios/reportar/${comentario.id}`}>
+              <LinkLikeSpan onClick={() => {
+                setModalDenunciaFormShow(true);
+                setComentarioIdDenuncia(comentario.id);
+              }}
+              >
                 <FaFlag />
-                <small> Reportar</small>
-                {/* TODO BACKEND REPORT */}
-              </ComentarioLink>
+                <small> Denunciar</small>
+              </LinkLikeSpan>
             </div>
           </Card.Footer>
         </Card>
@@ -72,12 +125,18 @@ function Comentarios({ boicoteId }) {
 
 export default Comentarios;
 
+// Styled Components
+
 const Span = styled.span`
   display: inline-flex;
   align-items: baseline;
 `;
 
-const ComentarioLink = styled(Link)`
-  color: #fff;
+const LinkLikeSpan = styled.span`
+  cursor: pointer;
+  transition: 0.3s ease-out;
   margin: 0 .5em 0 .5em;
+  &:hover {
+    color: lightgrey!important;
+  }
 `;

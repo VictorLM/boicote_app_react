@@ -5,13 +5,17 @@ async function visitanteCheck() {
   const visitanteId = Cookies.get('visitanteId');
 
   if (visitanteId === undefined) {
-    try {
-      const response = await axios.get('/visitantes/novo-visitante');
-      Cookies.set('visitanteId', response.data, { expires: 1825 });
-    } catch (error) {
-      // eslint-disable-next-line
-      console.log(error); // TODO
-    }
+    await axios.get('/visitantes/novo-visitante', { withCredentials: false })
+      .then((response) => {
+        Cookies.set('visitanteId', response.data, { expires: 1825 });
+      })
+      .catch((error) => {
+        // eslint-disable-next-line
+          console.log(error); // TODO
+      })
+      .then(() => {
+        // always executed
+      });
   }
 }
 
