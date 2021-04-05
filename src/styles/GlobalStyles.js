@@ -29,6 +29,13 @@ export default createGlobalStyle`
   a:hover {
     color: lightgrey!important;
   }
+  // REACT SHARE BTNS
+  .react-share__ShareButton {
+    transition: 0.3s ease-out;
+  }
+  .react-share__ShareButton:hover {
+    opacity: 0.6;
+  }
 
 `;
 

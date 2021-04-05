@@ -71,7 +71,7 @@ function Comentario({ comentario }) {
       />
 
       <Card className="m-3" bg="secondary" border="dark">
-        {/* TODO COMENTÁRIO CONFIAVÉL */}
+        {/* TODO COMENTÁRIO CONFIAVÉL - AJUSTAR API PRIMEIRO */}
         <Card.Body>
           <Card.Text>
             {comentario.comentario}

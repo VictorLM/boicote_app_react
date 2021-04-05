@@ -12,6 +12,7 @@ import {
 
 import axios from '../config/axios';
 import ModalDenunciaForm from './ModalDenunciaForm';
+import CompartilharBtnsPopover from './CompartilharBtnsPopover';
 
 const Boicote = ({ boicote, boicoteUnico, voto }) => {
   const [votoBoicote, setVotoBoicote] = useState(voto);
@@ -24,6 +25,9 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
   const [email, setEmail] = useState('');
   const [texto, setTexto] = useState('');
   const [loadingDenunciar, setLoadingDenunciar] = useState(false);
+  // POPOVER COMPARTILHAR
+  const [compartilharBtnsPopoverShow, setCompartilharBtnsPopoverShow] = useState(false);
+  const compartilharBtnsPopoverTarget = document.getElementById('compartilhar-btn');
 
   function setNovoVotosBoicoteCount(votoIsCima) {
     if (votoBoicote === null) {
@@ -34,7 +38,7 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
   }
 
   async function votar(votoIsCima) {
-    // TODO - ADD OPÇÃO DE DESVOTAR - PRIMEIRO LÁ NA API
+    //  - ADD OPÇÃO DE DESVOTAR - PRIMEIRO LÁ NA API
     if (!!votoBoicote !== votoIsCima) {
       try {
         const response = await axios.post(`/votos/${boicote.id}`, { cima: votoIsCima }, { withCredentials: true });
@@ -162,7 +166,7 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
                 {Object.values(boicote.links).map((link) => (
                   <span className="mb-1 d-block" key={link.link}>
                     <a href={link.link} className="text-white" target="_blank" rel="noreferrer"><i>{link.link}</i></a>
-                    {/* TODO LINK CONFIAVÉL */}
+                    {/* TODO LINK CONFIAVÉL - AJUSTAR API PRIMEIRO */}
                   </span>
                 ))}
               </Card.Text>
@@ -200,7 +204,13 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
               {boicoteUnico
                 ? (
                   <>
-                    <LinkLikeSpan>
+                    {/* TODO - POPOVER NÃO FECHA AO CLICAR FORA DO TRIGGER */}
+                    <CompartilharBtnsPopover
+                      show={compartilharBtnsPopoverShow}
+                      target={compartilharBtnsPopoverTarget}
+                      url={window.location.href}
+                    />
+                    <LinkLikeSpan id="compartilhar-btn" onClick={() => setCompartilharBtnsPopoverShow(!compartilharBtnsPopoverShow)}>
                       <FaShareSquare />
                       <small> Compartilhar</small>
                     </LinkLikeSpan>

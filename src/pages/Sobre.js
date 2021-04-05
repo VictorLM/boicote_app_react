@@ -17,7 +17,7 @@ const Sobre = () => (
         <hr />
         <Card.Text className="text-justify">
           Desenvolvido e mantido por mim, Victor Meireles, eterno Águia II.
-          Você pode me encontrar no Twitter:
+          Você pode me encontrar no Twitter em
           {' '}
           <a href="https://twitter.com/IAmDinamite/" target="_blank" rel="noreferrer">@IAmDinamite</a>
           .
