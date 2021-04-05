@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Footer = () => (
   <FooterStyled className="">
-    <p>Copyright &copy; 2021 - The Piruleta Company S/A</p>
+    <p>Copyright &copy; 2021 - Boicote.App - Todos os direitos reservados</p>
   </FooterStyled>
 );
 

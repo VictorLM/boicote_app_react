@@ -34,7 +34,7 @@ function ModalDenunciaForm({
           <Form.Group controlId="formBasicEmail">
             <Form.Control type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Seu e-mail" />
             <SmallStyled>
-              Nunca exibiremos seu e-mail sem permissão.
+              Seu e-mail não será exibido.
             </SmallStyled>
           </Form.Group>
 

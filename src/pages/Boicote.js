@@ -6,17 +6,20 @@ import { toast } from 'react-toastify';
 import axios from '../config/axios';
 import visitanteCheck from '../config/visitanteCheck';
 import BoicoteUnico from '../components/Boicote';
-import Comentarios from '../components/Comentarios';
+import Comentario from '../components/Comentario';
 import LoadingGrande from '../components/LoadingGrande';
 import NovoComentarioForm from '../components/NovoComentarioForm';
+import Erro from '../components/Erro';
 
 function Boicote() {
   // BOICOTE
   const [boicote, setBoicote] = useState([]);
-  const [loadingBoicotes, setLoadingBoicotes] = useState(true);
+  const [loadingBoicote, setLoadingBoicote] = useState(true);
+  const [boicoteErro, setBoicoteErro] = useState();
   const { boicoteId } = useParams();
-  // VOTOS
+  // VOTOS VISITANTE
   const [votos, setVotos] = useState([]);
+  const [loadingVotos, setLoadingVotos] = useState(true);
   // COMENTÁRIOS
   const [comentarios, setComentarios] = useState([]);
   const [loadingComentarios, setLoadingComentarios] = useState(true);
@@ -27,47 +30,36 @@ function Boicote() {
   const [loadingComentar, setLoadingComentar] = useState(false);
 
   async function getBoicote() {
-    await axios.get(`/boicotes/${boicoteId}`, { withCredentials: false })
-      .then((response) => {
-        setBoicote(response.data);
-      })
-      .catch((error) => {
-        setLoadingBoicotes(false);
-        // eslint-disable-next-line
-        console.log(error); // TODO
-      })
-      .then(() => {
-        // always executed
-      });
+    try {
+      const response = await axios.get(`/boicotes/${boicoteId}`, { withCredentials: false });
+      setBoicote(response.data);
+    } catch (err) {
+      setLoadingBoicote(false);
+      setBoicoteErro(err.response.data.errors ?? `Erro interno. Response code: ${err.response.status}`);
+      // console.error(err);
+    }
   }
 
   async function getVotos() {
-    await axios.get('/visitantes/votos', { withCredentials: true })
-      .then((response) => {
-        setVotos(response.data);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line
-        console.log(error); // TODO
-      })
-      .then(() => {
-        // always executed
-      });
+    try {
+      const response = await axios.get('/visitantes/votos', { withCredentials: true });
+      setVotos(response.data);
+    } catch (err) {
+      setLoadingVotos(false);
+      toast.error('Erro ao carregar seus votos. Recarregar a página pode resolver o problema.');
+      // console.error(err);
+    }
   }
 
   async function getComentarios() {
-    await axios.get(`/comentarios/${boicoteId}`, { withCredentials: false })
-      .then((response) => {
-        setComentarios(response.data);
-      })
-      .catch((error) => {
-        setLoadingComentarios(false);
-        // eslint-disable-next-line
-        console.log(error); // TODO
-      })
-      .then(() => {
-        // always executed
-      });
+    try {
+      const response = await axios.get(`/comentarios/${boicoteId}`, { withCredentials: false });
+      setComentarios(response.data);
+    } catch (err) {
+      setLoadingComentarios(false);
+      toast.error('Erro ao carregar os comentários. Recarregar a página pode resolver o problema.');
+      // console.error(err);
+    }
   }
 
   async function comentar(e) {
@@ -98,45 +90,49 @@ function Boicote() {
     setLoadingComentar(true);
 
     // ENVIANDO REQUEST PARA API
-    await axios.post(`/comentarios/${boicote.id}`, body, { withCredentials: true })
-      .then((response) => {
-        setComentarios([response.data, ...comentarios]);
-        setLoadingComentar(false);
-        // LIMPAR FORM
-        setNome('');
-        setEmail('');
-        setComentario('');
-        toast.success('Comentário cadastrado com sucesso.');
-      })
-      .catch((error) => {
-        setLoadingComentar(false);
-        // eslint-disable-next-line
-        console.log(error);
-        toast.error('Erro interno. Por favor, tente novamente mais tarde.');
-      })
-      .then(() => {
-      // always executed
-      });
+    try {
+      const response = await axios.post(`/comentarios/${boicote.id}`, body, { withCredentials: true });
+      setComentarios([response.data, ...comentarios]);
+      setLoadingComentar(false);
+      // LIMPAR FORM
+      setNome('');
+      setEmail('');
+      setComentario('');
+      toast.success('Comentário cadastrado com sucesso.');
+    } catch (err) {
+      setLoadingComentar(false);
+      toast.error('Erro ao enviar comentário. Tente novamente mais tarde.');
+      // console.error(err);
+    }
   }
 
   useEffect(async () => {
     if (!boicoteId) return;
 
-    setLoadingBoicotes(true);
+    setLoadingBoicote(true);
     setLoadingComentarios(true);
-    await getVotos();
     await getBoicote();
-    setLoadingBoicotes(false);
+    setLoadingBoicote(false);
+    await getVotos();
+    setLoadingVotos(false);
     await getComentarios();
     setLoadingComentarios(false);
     // CHECA COOKIE VISITANTEID
     await visitanteCheck();
   }, []);
 
-  if (loadingBoicotes) {
+  if (loadingBoicote || loadingVotos) {
     return (
       <>
         <LoadingGrande />
+      </>
+    );
+  }
+
+  if (boicote.length < 1) {
+    return (
+      <>
+        <Erro mensagem={boicoteErro} />
       </>
     );
   }
@@ -166,7 +162,21 @@ function Boicote() {
       <hr />
       <h2 className="text-center">Comentários</h2>
       <hr />
-      {loadingComentarios ? <LoadingGrande /> : <Comentarios comentarios={comentarios} />}
+      {loadingComentarios
+        ? <LoadingGrande />
+        : [
+          (comentarios.length < 1
+            ? (
+              <h5 key="0" className="text-center">
+                Não há comentários cadastrados. Seja o primeiro a comentar!
+              </h5>
+            ) : (
+              comentarios.map((cadaComentario) => (
+                <Comentario key={String(cadaComentario.id)} comentario={cadaComentario} />
+              ))
+            )
+          ),
+        ]}
     </div>
   );
 }

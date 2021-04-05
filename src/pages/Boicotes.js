@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
 import axios from '../config/axios';
 import visitanteCheck from '../config/visitanteCheck';
 import BoicotesMultiplos from '../components/Boicote';
@@ -10,46 +12,42 @@ function Boicotes() {
   const [loadingBoicotes, setLoadingBoicotes] = useState(true);
   // VOTOS
   const [votos, setVotos] = useState([]);
+  const [loadingVotos, setLoadingVotos] = useState(true);
 
   async function getBoicotes() {
-    await axios.get('/boicotes', { withCredentials: false })
-      .then((response) => {
-        setBoicotes(response.data);
-      })
-      .catch((error) => {
-        setLoadingBoicotes(false);
-        // eslint-disable-next-line
-        console.log(error); // TODO
-      })
-      .then(() => {
-        // always executed
-      });
+    try {
+      const response = await axios.get('/boicotes', { withCredentials: false });
+      setBoicotes(response.data);
+    } catch (err) {
+      setLoadingBoicotes(false);
+      toast.error('Erro ao carregar os boicotes. Recarregar a página pode resolver o problema.');
+      // console.error(err);
+    }
   }
 
   async function getVotos() {
-    await axios.get('/visitantes/votos', { withCredentials: true })
-      .then((response) => {
-        setVotos(response.data);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line
-        console.log(error); // TODO
-      })
-      .then(() => {
-        // always executed
-      });
+    try {
+      const response = await axios.get('/visitantes/votos', { withCredentials: true });
+      setVotos(response.data);
+    } catch (err) {
+      setLoadingVotos(false);
+      toast.error('Erro ao carregar seus votos. Recarregar a página pode resolver o problema.');
+      // console.error(err);
+    }
   }
 
   useEffect(async () => {
     setLoadingBoicotes(true);
+    setLoadingVotos(true);
     await getBoicotes();
-    await getVotos();
     setLoadingBoicotes(false);
+    await getVotos();
+    setLoadingVotos(false);
     // CHECA COOKIE VISITANTEID
     await visitanteCheck();
   }, []);
 
-  if (loadingBoicotes) {
+  if (loadingBoicotes || loadingVotos) {
     return (
       <>
         <hr />

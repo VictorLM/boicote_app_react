@@ -5,6 +5,7 @@ import Home from '../pages/Home';
 import Boicotes from '../pages/Boicotes';
 import Boicote from '../pages/Boicote';
 import ConfirmarBoicote from '../pages/ConfirmarBoicote';
+import NovoBoicote from '../pages/NovoBoicote';
 import Sobre from '../pages/Sobre';
 
 const Rotas = () => (
@@ -22,7 +23,7 @@ const Rotas = () => (
       <Boicotes />
     </Route>
     <Route path="/novo-boicote">
-      <h1>Novo Boicote Form - INFORMAR DADOS QUE SERÃO EXPOSTOS</h1>
+      <NovoBoicote />
     </Route>
     <Route path="/">
       <Home />

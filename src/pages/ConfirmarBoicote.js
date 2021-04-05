@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import { Card } from 'react-bootstrap';
 
 import axios from '../config/axios';
 import visitanteCheck from '../config/visitanteCheck';
@@ -15,21 +15,14 @@ function ConfirmarBoicote() {
   const { boicoteId, token } = useParams();
 
   async function confirmarBoicote() {
-    await axios.get(`/boicotes/confirmar/${boicoteId}/${token}`, { withCredentials: false })
-      .then((response) => { //eslint-disable-line
-        toast.success('Boicote confirmado com sucesso. Em breve você será redirecionado(a) para visualiza-lo.');
-        setTimeout(() => setRedirect(true), 6000);
-      })
-      .catch((error) => {
-        setLoading(false);
-        setErro(true);
-        // eslint-disable-next-line
-        console.log(error); // TODO
-        toast.error('Erro interno. Verifique o link acessado ou tente novamente mais tarde.');
-      })
-      .then(() => {
-        // always executed
-      });
+    try {
+      axios.get(`/boicotes/confirmar/${boicoteId}/${token}`, { withCredentials: false });
+      setTimeout(() => setRedirect(true), 5000); // O TEMPO DE LER A PÁGINA
+    } catch (err) {
+      setLoading(false);
+      setErro(true);
+      // console.error(err);
+    }
   }
 
   useEffect(async () => {
@@ -51,20 +44,40 @@ function ConfirmarBoicote() {
   }
 
   return (
-    <div className="mb-4 mt-4">
 
-      <h1 className="text-center display-1">
+    <Card className="m-4 px-4" bg="secondary" border="dark">
+      <Card.Body className="mt-2 pb-0">
+
         {erro
-          ? <FaExclamationCircle className="text-danger" />
-          : (
+          ? (
             <>
-              <FaCheckCircle className="text-success" />
+              <h3 className="text-center">
+                Erro ao confirmar
+              </h3>
+              <h1 className="text-center display-1">
+                <FaExclamationCircle className="text-danger" />
+              </h1>
+              <h5 className="text-center mt-4 mb-5">
+                Verifique o link acessado ou tente novamente mais tarde.
+              </h5>
+            </>
+          ) : (
+            <>
+              <h3 className="text-center">
+                Boicote confirmado com sucesso!
+              </h3>
+              <h1 className="text-center display-1">
+                <FaCheckCircle className="text-success" />
+              </h1>
+              <h5 className="text-center mt-4 mb-5">
+                Aguarde um momento, em breve você será redirecionado(a) para visualiza-lo.
+              </h5>
               {redirect && <Redirect to={`/boicotes/${boicoteId}`} />}
             </>
           )}
-      </h1>
 
-    </div>
+      </Card.Body>
+    </Card>
   );
 }
 

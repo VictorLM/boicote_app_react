@@ -34,19 +34,16 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
   }
 
   async function votar(votoIsCima) {
+    // TODO - ADD OPÇÃO DE DESVOTAR - PRIMEIRO LÁ NA API
     if (!!votoBoicote !== votoIsCima) {
-      await axios.post(`/votos/${boicote.id}`, { cima: votoIsCima }, { withCredentials: true })
-        .then((response) => {
-          setNovoVotosBoicoteCount(response.data.cima);
-          setVotoBoicote(response.data.cima ? 1 : 0);
-        })
-        .catch((error) => {
-        // eslint-disable-next-line
-        console.log(error); // TODO
-        })
-        .then(() => {
-        // always executed
-        });
+      try {
+        const response = await axios.post(`/votos/${boicote.id}`, { cima: votoIsCima }, { withCredentials: true });
+        setNovoVotosBoicoteCount(response.data.cima);
+        setVotoBoicote(response.data.cima ? 1 : 0);
+      } catch (err) {
+        toast.error('Erro ao enviar voto. Recarregar a página pode resolver o problema.');
+        // console.error(err);
+      }
     }
   }
 
@@ -78,22 +75,17 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
     setLoadingDenunciar(true);
 
     // ENVIANDO REQUEST PARA API
-    await axios.post(`/denuncias/boicote/${boicote.id}`, body, { withCredentials: true })
-      .then((response) => { //eslint-disable-line
-        setLoadingDenunciar(false);
-        setModalDenunciaFormShow(false);
-        toast.success('Denúncia enviada com sucesso. Obrigado por reportar.');
-      })
-      .catch((error) => {
-        setLoadingDenunciar(false);
-        setModalDenunciaFormShow(false);
-        // eslint-disable-next-line
-        console.log(error);
-        toast.error('Erro interno. Por favor, tente novamente mais tarde.');
-      })
-      .then(() => {
-      // always executed
-      });
+    try {
+      axios.post(`/denuncias/boicote/${boicote.id}`, body, { withCredentials: true });
+      setLoadingDenunciar(false);
+      setModalDenunciaFormShow(false);
+      toast.success('Denúncia enviada com sucesso. Obrigado por reportar.');
+    } catch (err) {
+      setLoadingDenunciar(false);
+      setModalDenunciaFormShow(false);
+      toast.error('Erro ao enviar denúncia. Recarregar a página pode resolver o problema.');
+      // console.error(err);
+    }
   }
 
   return (
@@ -195,7 +187,6 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
                 <FaCalendar />
               &nbsp;
                 {new Date(boicote.createdAt).toLocaleString().slice(0, 16)}
-                {/* ARRUMAR O UTC. ESTA EXIBINDO A HORA UTC-3 POR CAUSA DO LOCALE */}
               </span>
               <span className="d-inline-flex align-items-baseline ml-2">
                 <FaComment />
@@ -272,7 +263,6 @@ const BoicoteTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  // text-align: left!important;
 `;
 
 const BoicoteLink = styled(Link)`

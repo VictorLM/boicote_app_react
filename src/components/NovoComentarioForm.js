@@ -10,8 +10,8 @@ function NovoComentarioForm({
   loading, setNome, setEmail, setComentario, nome, email, comentario, comentar,
 }) {
   return (
-    <Card className="mx-3 px-4" bg="secondary" border="dark">
-      <Card.Body className="mt-2 pb-0">
+    <Card className="mx-3" bg="secondary" border="dark">
+      <Card.Body className="mt-2 pb-0 px-4">
         <Form>
 
           <Row>
@@ -24,7 +24,7 @@ function NovoComentarioForm({
               <Form.Group className="mb-0" controlId="formBasicEmail">
                 <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Seu e-mail" />
                 <SmallStyled>
-                  Nunca exibiremos seu e-mail sem permissão.
+                  Seu e-mail não será exibido.
                 </SmallStyled>
               </Form.Group>
             </Col>
