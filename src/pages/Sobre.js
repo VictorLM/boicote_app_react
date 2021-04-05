@@ -16,6 +16,17 @@ const Sobre = () => (
         </h2>
         <hr />
         <Card.Text className="text-justify">
+          Boicote.App foi desenvolvido com o objetivo de centralizar os boicotes na internet.
+          {' '}
+          Com o sistema de votos,
+          {' '}
+          a comunidade pode validar cada boicote e também interagir nos comentários.
+          {' '}
+          Também há um sistema de denúncias, para manter a comunidade mais saudavél
+          {' '}
+          e as informações filtradas.
+        </Card.Text>
+        <Card.Text className="text-justify">
           Desenvolvido e mantido por mim, Victor Meireles, eterno Águia II.
           Você pode me encontrar no Twitter em
           {' '}
