@@ -35,7 +35,13 @@ function Boicote() {
       setBoicote(response.data);
     } catch (err) {
       setLoadingBoicote(false);
-      setBoicoteErro(err.response.data.errors ?? `Erro interno. Response code: ${err.response.status}`);
+      if (err.response) {
+        // Request made and server responded
+        setBoicoteErro(err.response.data.errors ?? `Erro interno. Response code: ${err.response.status}`);
+      } else if (err.request) {
+        // The request was made but no response was received
+        setBoicoteErro('Erro ao carregar boicote. Recarregar a página pode resolver o problema.');
+      }
       // console.error(err);
     }
   }
