@@ -37,14 +37,15 @@ function Boicotes() {
   }
 
   useEffect(async () => {
+    // CHECA COOKIE VISITANTEID
+    await visitanteCheck();
+
     setLoadingBoicotes(true);
     setLoadingVotos(true);
     await getBoicotes();
     setLoadingBoicotes(false);
     await getVotos();
     setLoadingVotos(false);
-    // CHECA COOKIE VISITANTEID
-    await visitanteCheck();
   }, []);
 
   if (loadingBoicotes || loadingVotos) {

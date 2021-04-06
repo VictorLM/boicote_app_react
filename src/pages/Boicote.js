@@ -115,6 +115,9 @@ function Boicote() {
   useEffect(async () => {
     if (!boicoteId) return;
 
+    // CHECA COOKIE VISITANTEID
+    await visitanteCheck();
+
     setLoadingBoicote(true);
     setLoadingComentarios(true);
     await getBoicote();
@@ -123,8 +126,6 @@ function Boicote() {
     setLoadingVotos(false);
     await getComentarios();
     setLoadingComentarios(false);
-    // CHECA COOKIE VISITANTEID
-    await visitanteCheck();
   }, []);
 
   if (loadingBoicote || loadingVotos) {
