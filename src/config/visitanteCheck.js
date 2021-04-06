@@ -2,8 +2,8 @@ import Cookies from 'js-cookie';
 import axios from './axios';
 
 async function visitanteCheck() {
-  const dominio = '.localhost'; // DEV
-  // const dominio = '.boicote.app'; // PRODUÇÃO
+  // const dominio = '.localhost'; // DEV
+  const dominio = '.boicote.app'; // PRODUÇÃO
   const visitanteId = Cookies.get('visitanteId');
 
   if (visitanteId === undefined) {
