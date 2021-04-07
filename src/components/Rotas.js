@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 import Home from '../pages/Home';
 import Boicotes from '../pages/Boicotes';
@@ -8,27 +9,63 @@ import ConfirmarBoicote from '../pages/ConfirmarBoicote';
 import NovoBoicote from '../pages/NovoBoicote';
 import Sobre from '../pages/Sobre';
 
-const Rotas = () => (
-  <Switch>
-    <Route path="/sobre">
-      <Sobre />
-    </Route>
-    <Route path="/boicotes/confirmar/:boicoteId/:token">
-      <ConfirmarBoicote />
-    </Route>
-    <Route path="/boicotes/:boicoteId">
-      <Boicote />
-    </Route>
-    <Route path="/boicotes">
-      <Boicotes />
-    </Route>
-    <Route path="/novo-boicote">
-      <NovoBoicote />
-    </Route>
-    <Route path="/">
-      <Home />
-    </Route>
-  </Switch>
-);
+function Rotas() {
+  //
+  ReactGA.initialize(process.env.REACT_APP_GA4_UNIVERSAL_ID);
+
+  function googleAnalytics() {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }
+
+  return (
+    <Switch>
+
+      <Route
+        path="/sobre"
+        render={() => {
+          googleAnalytics();
+          return <Sobre />;
+        }}
+      />
+      <Route
+        path="/boicotes/confirmar/:boicoteId/:token"
+        render={() => {
+          googleAnalytics();
+          return <ConfirmarBoicote />;
+        }}
+      />
+      <Route
+        path="/boicotes/:boicoteId"
+        render={() => {
+          googleAnalytics();
+          return <Boicote />;
+        }}
+      />
+      <Route
+        path="/boicotes"
+        render={() => {
+          googleAnalytics();
+          return <Boicotes />;
+        }}
+      />
+      <Route
+        path="/novo-boicote"
+        render={() => {
+          googleAnalytics();
+          return <NovoBoicote />;
+        }}
+      />
+      <Route
+        exact
+        path="/"
+        render={() => {
+          googleAnalytics();
+          return <Home />;
+        }}
+      />
+
+    </Switch>
+  );
+}
 
 export default Rotas;
