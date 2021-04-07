@@ -22,7 +22,7 @@ const Sobre = () => (
           {' '}
           a comunidade pode validar cada boicote e também interagir nos comentários.
           {' '}
-          Também há um sistema de denúncias, para manter a comunidade mais saudavél
+          Também há um sistema de denúncias, para manter a comunidade mais saudável
           {' '}
           e as informações filtradas.
         </Card.Text>
@@ -34,7 +34,7 @@ const Sobre = () => (
           .
         </Card.Text>
         <Card.Text className="text-justify">
-          Esse é meu primeirio projeto desenvolvido em Java Script.
+          Esse é meu primeiro projeto desenvolvido em Java Script.
           Back-end em NodeJS + Express e front-end em React.
         </Card.Text>
         <Card.Text className="text-justify">
