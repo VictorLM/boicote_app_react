@@ -49,11 +49,22 @@ function Comentario({ comentario }) {
       axios.post(`/denuncias/comentario/${comentarioIdDenuncia}`, body, { withCredentials: true });
       setModalDenunciaFormShow(false);
       setLoadingDenunciar(false);
-      toast.success('Denúncia enviada com sucesso. Obrigado por reportar.');
     } catch (err) {
       setModalDenunciaFormShow(false);
       setLoadingDenunciar(false);
-      toast.error('Erro ao enviar a denúncia. Tente novamente mais tarde.');
+      if (err.response) {
+        // HOUVE RESPOSTA COM ERROR CODE
+        const errors = err.response.data ?? []; // NÃO PEGA ERRO UNIQUE DO SEQUELIZE
+
+        if (errors.length > 0 && typeof errors === 'object') { // PARA STRING NÃO DAR FATAL NO MAP
+          errors.map((error) => toast.error(error.message));
+        } else {
+          toast.error(`Erro desconhecido ao enviar denúncia. Tente novamente mais tarde. Code: ${err.response.status}.`);
+        }
+      } else if (err.request) {
+        // NÃO HOUVE RESPOSTA
+        toast.error('Nossos servidores não estão respondendo. Tente novamente mais tarde.');
+      }
       // console.error(err);
     }
   }

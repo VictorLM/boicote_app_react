@@ -38,16 +38,27 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
   }
 
   async function votar(votoIsCima) {
-    //  - ADD OPÇÃO DE DESVOTAR - PRIMEIRO LÁ NA API
-    if (!!votoBoicote !== votoIsCima) {
-      try {
-        const response = await axios.post(`/votos/${boicote.id}`, { cima: votoIsCima }, { withCredentials: true });
-        setNovoVotosBoicoteCount(response.data.cima);
-        setVotoBoicote(response.data.cima ? 1 : 0);
-      } catch (err) {
-        toast.error('Erro ao enviar voto. Recarregar a página pode resolver o problema.');
-        // console.error(err);
+    // TODO - ADD OPÇÃO DE DESVOTAR - PRIMEIRO LÁ NA API
+    // ENVIANDO REQUEST PARA API
+    try {
+      const response = await axios.post(`/votos/${boicote.id}`, { cima: votoIsCima }, { withCredentials: true });
+      setNovoVotosBoicoteCount(response.data.cima);
+      setVotoBoicote(response.data.cima ? 1 : 0);
+    } catch (err) {
+      if (err.response) {
+        // HOUVE RESPOSTA COM ERROR CODE
+        const errors = err.response.data ?? []; // NÃO PEGA ERRO UNIQUE DO SEQUELIZE
+
+        if (errors.length > 0 && typeof errors === 'object') { // PARA STRING NÃO DAR FATAL NO MAP
+          errors.map((error) => toast.error(error.message));
+        } else {
+          toast.error(`Erro desconhecido ao enviar voto. Tente novamente mais tarde. Code: ${err.response.status}.`);
+        }
+      } else if (err.request) {
+        // NÃO HOUVE RESPOSTA
+        toast.error('Nossos servidores não estão respondendo. Tente novamente mais tarde.');
       }
+      // console.error(err);
     }
   }
 
@@ -80,14 +91,26 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
 
     // ENVIANDO REQUEST PARA API
     try {
-      axios.post(`/denuncias/boicote/${boicote.id}`, body, { withCredentials: true });
+      await axios.post(`/denuncias/boicote/${boicote.id}`, body, { withCredentials: true });
       setLoadingDenunciar(false);
       setModalDenunciaFormShow(false);
       toast.success('Denúncia enviada com sucesso. Obrigado por reportar.');
     } catch (err) {
       setLoadingDenunciar(false);
       setModalDenunciaFormShow(false);
-      toast.error('Erro ao enviar denúncia. Recarregar a página pode resolver o problema.');
+      if (err.response) {
+        // HOUVE RESPOSTA COM ERROR CODE
+        const errors = err.response.data ?? []; // NÃO PEGA ERRO UNIQUE DO SEQUELIZE
+
+        if (errors.length > 0 && typeof errors === 'object') { // PARA STRING NÃO DAR FATAL NO MAP
+          errors.map((error) => toast.error(error.message));
+        } else {
+          toast.error(`Erro desconhecido ao enviar denúncia. Tente novamente mais tarde. Code: ${err.response.status}.`);
+        }
+      } else if (err.request) {
+        // NÃO HOUVE RESPOSTA
+        toast.error('Nossos servidores não estão respondendo. Tente novamente mais tarde.');
+      }
       // console.error(err);
     }
   }

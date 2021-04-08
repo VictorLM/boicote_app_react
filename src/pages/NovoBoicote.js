@@ -109,7 +109,19 @@ function NovoBoicote() {
       setLinks('');
     } catch (err) {
       setLoadingCasdastrarNovoBoicote(false);
-      toast.error('Erro ao enviar o boicote. Recarregar a página pode resolver o problema.');
+      if (err.response) {
+        // HOUVE RESPOSTA COM ERROR CODE
+        const errors = err.response.data ?? []; // NÃO PEGA ERRO UNIQUE DO SEQUELIZE
+
+        if (errors.length > 0 && typeof errors === 'object') { // PARA STRING NÃO DAR FATAL NO MAP
+          errors.map((error) => toast.error(error.message));
+        } else {
+          toast.error(`Erro desconhecido ao enviar boicote. Tente novamente mais tarde. Code: ${err.response.status}.`);
+        }
+      } else if (err.request) {
+        // NÃO HOUVE RESPOSTA
+        toast.error('Nossos servidores não estão respondendo. Tente novamente mais tarde.');
+      }
       // console.error(err);
     }
   }

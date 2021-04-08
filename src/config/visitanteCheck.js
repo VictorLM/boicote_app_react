@@ -17,6 +17,7 @@ async function visitanteCheck() {
       const response = await axios.get('/visitantes/novo-visitante', { withCredentials: false });
       Cookies.set('visitanteId', response.data, { domain: dominio, expires: 1825 });
     } catch (err) {
+      // TODO?
       // console.error(err);
     }
   }

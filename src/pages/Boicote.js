@@ -30,40 +30,67 @@ function Boicote() {
   const [loadingComentar, setLoadingComentar] = useState(false);
 
   async function getBoicote() {
+    // ENVIANDO REQUEST PARA API
     try {
       const response = await axios.get(`/boicotes/${boicoteId}`, { withCredentials: false });
       setBoicote(response.data);
     } catch (err) {
       setLoadingBoicote(false);
       if (err.response) {
-        // Request made and server responded
-        setBoicoteErro(err.response.data.errors ?? `Erro interno. Response code: ${err.response.status}`);
+        // HOUVE RESPOSTA COM ERROR CODE
+        setBoicoteErro(err.response.data[0].message ?? `Erro interno. Response code: ${err.response.status}`);
       } else if (err.request) {
-        // The request was made but no response was received
-        setBoicoteErro('Erro ao carregar boicote. Recarregar a página pode resolver o problema.');
+        // NÃO HOUVE RESPOSTA
+        setBoicoteErro('Nossos servidores não estão respondendo. Tente novamente mais tarde.');
       }
       // console.error(err);
     }
   }
 
   async function getVotos() {
+    // ENVIANDO REQUEST PARA API
     try {
       const response = await axios.get('/visitantes/votos', { withCredentials: true });
       setVotos(response.data);
     } catch (err) {
       setLoadingVotos(false);
-      toast.error('Erro ao carregar seus votos. Recarregar a página pode resolver o problema.');
+      if (err.response) {
+        // HOUVE RESPOSTA COM ERROR CODE
+        const errors = err.response.data ?? []; // NÃO PEGA ERRO UNIQUE DO SEQUELIZE
+
+        if (errors.length > 0 && typeof errors === 'object') { // PARA STRING NÃO DAR FATAL NO MAP
+          errors.map((error) => toast.error(error.message));
+        } else {
+          toast.error(`Erro ao carregar seus votos. Tente novamente mais tarde. Code: ${err.response.status}.`);
+        }
+      } else if (err.request) {
+        // NÃO HOUVE RESPOSTA
+        toast.error('Nossos servidores não estão respondendo. Tente novamente mais tarde.');
+      }
       // console.error(err);
     }
   }
 
   async function getComentarios() {
+    // ENVIANDO REQUEST PARA API
     try {
       const response = await axios.get(`/comentarios/${boicoteId}`, { withCredentials: false });
       setComentarios(response.data);
     } catch (err) {
       setLoadingComentarios(false);
-      toast.error('Erro ao carregar os comentários. Recarregar a página pode resolver o problema.');
+      if (err.response) {
+        // HOUVE RESPOSTA COM ERROR CODE
+        const errors = err.response.data ?? []; // NÃO PEGA ERRO UNIQUE DO SEQUELIZE
+
+        if (errors.length > 0 && typeof errors === 'object') { // PARA STRING NÃO DAR FATAL NO MAP
+          errors.map((error) => toast.error(error.message));
+        } else {
+          toast.error(`Erro desconhecido ao carregar os comentários. Tente novamente mais tarde. Code: ${err.response.status}.`);
+        }
+      } else if (err.request) {
+        // NÃO HOUVE RESPOSTA
+        toast.error('Nossos servidores não estão respondendo. Tente novamente mais tarde.');
+      }
       // console.error(err);
     }
   }
@@ -107,7 +134,19 @@ function Boicote() {
       toast.success('Comentário cadastrado com sucesso.');
     } catch (err) {
       setLoadingComentar(false);
-      toast.error('Erro ao enviar comentário. Tente novamente mais tarde.');
+      if (err.response) {
+        // HOUVE RESPOSTA COM ERROR CODE
+        const errors = err.response.data ?? []; // NÃO PEGA ERRO UNIQUE DO SEQUELIZE
+
+        if (errors.length > 0 && typeof errors === 'object') { // PARA STRING NÃO DAR FATAL NO MAP
+          errors.map((error) => toast.error(error.message));
+        } else {
+          toast.error(`Erro desconhecido ao enviar comentário. Tente novamente mais tarde. Code: ${err.response.status}.`);
+        }
+      } else if (err.request) {
+        // NÃO HOUVE RESPOSTA
+        toast.error('Nossos servidores não estão respondendo. Tente novamente mais tarde.');
+      }
       // console.error(err);
     }
   }
