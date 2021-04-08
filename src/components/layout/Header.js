@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Nav, Navbar, Image } from 'react-bootstrap';
 import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 import styled from 'styled-components';
@@ -8,7 +9,9 @@ import Logo from '../../assets/images/logo-png-sm.png';
 const Header = () => (
   <HeaderStyled bg="light" border="rounded" expand="lg">
     <Navbar.Brand className="py-1">
-      <Image src={Logo} rounded />
+      <Link to="/">
+        <Image src={Logo} rounded />
+      </Link>
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">

@@ -46,9 +46,10 @@ function Comentario({ comentario }) {
 
     // ENVIANDO REQUEST PARA API
     try {
-      axios.post(`/denuncias/comentario/${comentarioIdDenuncia}`, body, { withCredentials: true });
+      await axios.post(`/denuncias/comentario/${comentarioIdDenuncia}`, body, { withCredentials: true });
       setModalDenunciaFormShow(false);
       setLoadingDenunciar(false);
+      toast.success('Denúncia enviada com sucesso. Obrigado por reportar.');
     } catch (err) {
       setModalDenunciaFormShow(false);
       setLoadingDenunciar(false);

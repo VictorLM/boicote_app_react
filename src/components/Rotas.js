@@ -8,6 +8,7 @@ import Boicote from '../pages/Boicote';
 import ConfirmarBoicote from '../pages/ConfirmarBoicote';
 import NovoBoicote from '../pages/NovoBoicote';
 import Sobre from '../pages/Sobre';
+import Pagina404 from '../pages/Pagina404';
 
 function Rotas() {
   //
@@ -63,6 +64,7 @@ function Rotas() {
           return <Home />;
         }}
       />
+      <Route component={Pagina404} />
 
     </Switch>
   );

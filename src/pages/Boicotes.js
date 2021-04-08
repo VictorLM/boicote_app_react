@@ -14,8 +14,14 @@ function Boicotes() {
   const [loadingBoicotes, setLoadingBoicotes] = useState(true);
   // PAGINATION
   const [boicotesCount, setBoicotesCount] = useState();
-  const pagina = Number(new URLSearchParams(useLocation().search).get('pagina') || 1);
+  let pagina = (new URLSearchParams(useLocation().search).get('pagina'));
+  pagina = Number(pagina);
+  if (Number.isNaN(pagina) || pagina <= 0) {
+    pagina = 1;
+  }
   const boicotesPorPagina = 10; // TODO - ALTERAR - LIMITE DE BOICOTES POR PÁGINA
+  // SE PÁGINA ATUAL É A HOME - MUDAR TÍTULO E TIRAR PAGINATION
+  const homePage = useLocation().pathname === '/';
   // VOTOS
   const [votos, setVotos] = useState([]);
   const [loadingVotos, setLoadingVotos] = useState(true);
@@ -85,7 +91,9 @@ function Boicotes() {
     return (
       <>
         <hr />
-        <h1 className="text-center">Boicotes</h1>
+        <h1 className="text-center">
+          {homePage ? 'Boicotes Recentes' : 'Boicotes' }
+        </h1>
         <hr />
         <LoadingGrande />
       </>
@@ -96,7 +104,9 @@ function Boicotes() {
     return (
       <>
         <hr />
-        <h1 className="text-center">Boicotes</h1>
+        <h1 className="text-center">
+          {homePage ? 'Boicotes Recentes' : 'Boicotes' }
+        </h1>
         <hr />
         <h4 className="text-center">Não há boicotes cadastrados para exibir.</h4>
       </>
@@ -106,7 +116,9 @@ function Boicotes() {
   return (
     <div className="">
       <hr />
-      <h1 className="text-center">Boicotes</h1>
+      <h1 className="text-center">
+        {homePage ? 'Boicotes Recentes' : 'Boicotes' }
+      </h1>
       <hr />
       {boicotes.map((boicote) => (
         <BoicotesMultiplos
@@ -119,7 +131,7 @@ function Boicotes() {
         />
       ))}
 
-      {boicotesCount > boicotesPorPagina && (
+      {(boicotesCount > boicotesPorPagina && !homePage) && (
         <PaginationBoicotes
           boicotesCount={boicotesCount}
           boicotesPorPagina={boicotesPorPagina}

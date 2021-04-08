@@ -30,7 +30,10 @@ const Sobre = () => (
           Desenvolvido e mantido por mim, Victor Meireles, eterno Águia II.
           Você pode me encontrar no Twitter em
           {' '}
-          <a href="https://twitter.com/IAmDinamite/" target="_blank" rel="noreferrer">@IAmDinamite</a>
+          <StyledLink href="https://twitter.com/IAmDinamite/" target="_blank" rel="noreferrer">@IAmDinamite</StyledLink>
+          , ou através do e-mail
+          {' '}
+          <StyledLink href="mailto:boicoteapp@gmail.com">boicoteapp@gmail.com</StyledLink>
           .
         </Card.Text>
         <Card.Text className="text-justify">
@@ -80,4 +83,8 @@ const MenuStyledLink = styled.a`
       || props.instagram && '#E1306C!important'
 };
   }
+`;
+
+const StyledLink = styled.a`
+  color: #00bfff!important;
 `;
