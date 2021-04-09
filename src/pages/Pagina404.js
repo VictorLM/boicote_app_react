@@ -5,7 +5,7 @@ import { Card } from 'react-bootstrap';
 function Pagina404() {
   return (
 
-    <Card className="m-4 px-4" bg="secondary" border="dark">
+    <Card className="px-4" bg="secondary" border="dark">
       <Card.Body className="mt-2 pb-0">
 
         <h3 className="text-center">

@@ -82,7 +82,7 @@ function Comentario({ comentario }) {
         denunciar={denunciar}
       />
 
-      <Card className="m-3" bg="secondary" border="dark">
+      <Card bg="secondary" border="dark">
         {/* TODO COMENTÁRIO CONFIAVÉL - AJUSTAR API PRIMEIRO */}
         <Card.Body>
           <Card.Text>
@@ -132,7 +132,6 @@ const Span = styled.span`
 
 const LinkLikeSpan = styled.span`
   cursor: pointer;
-  transition: 0.3s ease-out;
   margin: 0 .5em 0 .5em;
   &:hover {
     color: lightgrey!important;

@@ -3,7 +3,7 @@ import { FaExclamationCircle } from 'react-icons/fa';
 import { Card } from 'react-bootstrap';
 
 const Erro = ({ mensagem }) => (
-  <Card className="m-4 px-4" bg="secondary" border="dark">
+  <Card className="px-4" bg="secondary" border="dark">
     <Card.Body className="mt-2 pb-0">
       <h1 className="text-center">Erro</h1>
       <h1 className="text-center display-1">

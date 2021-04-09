@@ -5,12 +5,13 @@ import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 import styled from 'styled-components';
 import Menu from './Menu';
 import Logo from '../../assets/images/logo-png-sm.png';
+import { primaryColor, grayColor } from '../../config/colors';
 
 const Header = () => (
-  <HeaderStyled bg="light" border="rounded" expand="lg">
+  <HeaderStyled expand="lg">
     <Navbar.Brand className="py-1">
       <Link to="/">
-        <Image src={Logo} rounded />
+        <Image src={Logo} rounded className="my-1" />
       </Link>
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -29,6 +30,7 @@ const Header = () => (
           <FaInstagram />
         </MenuStyledNavLink>
       </Nav>
+      <span className="d-block d-md-none"><br /></span>
     </Navbar.Collapse>
   </HeaderStyled>
 );
@@ -39,13 +41,13 @@ const HeaderStyled = styled(Navbar)`
   font-size: 1.5rem;
   padding-top: 0;
   padding-bottom: 0;
+  border-bottom: 1px solid ${grayColor}!important;
 `;
 
 const MenuStyledNavLink = styled(Nav.Link)`
-  color: #3B3A3A!important;
+  color: ${primaryColor}!important;
   padding-right: .5rem!important;
   padding-left: .5rem!important;
-  transition: 0.3s ease-out;
   &:hover {
     color: ${(props) => props.twitter && '#1DA1F2!important'
       || props.facebook && '#3b5998!important'

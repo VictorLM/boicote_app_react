@@ -90,11 +90,16 @@ function Boicotes() {
   if (loadingBoicotes || loadingVotos) {
     return (
       <>
-        <hr />
-        <h1 className="text-center">
-          {homePage ? 'Boicotes Recentes' : 'Boicotes' }
-        </h1>
-        <hr />
+        {homePage
+          ? (
+            <h2 className="text-center my-4 header">
+              BOICOTES RECENTES
+            </h2>
+          ) : (
+            <h1 className="text-center my-4 header">
+              BOICOTES
+            </h1>
+          )}
         <LoadingGrande />
       </>
     );
@@ -103,23 +108,43 @@ function Boicotes() {
   if (boicotes.length < 1) {
     return (
       <>
-        <hr />
-        <h1 className="text-center">
-          {homePage ? 'Boicotes Recentes' : 'Boicotes' }
-        </h1>
-        <hr />
+        {homePage
+          ? (
+            <h2 className="text-center my-4 header">
+              BOICOTES RECENTES
+            </h2>
+          ) : (
+            <h1 className="text-center my-4 header">
+              BOICOTES
+            </h1>
+          )}
         <h4 className="text-center">Não há boicotes cadastrados para exibir.</h4>
       </>
     );
   }
 
   return (
-    <div className="">
-      <hr />
-      <h1 className="text-center">
-        {homePage ? 'Boicotes Recentes' : 'Boicotes' }
-      </h1>
-      <hr />
+    <>
+
+      {homePage
+        ? (
+          <h2 className="text-center my-4 header">
+            BOICOTES RECENTES
+          </h2>
+        ) : (
+          <h1 className="text-center my-4 header">
+            BOICOTES
+          </h1>
+        )}
+      <p className="text-center text-muted">
+        {homePage
+          ? (
+            'Veja abaixo os últimos Boicote cadastrados. Para visualizar todos, '
+            + 'selecione a opção Boicotes no menu localizado no topo da página.'
+          ) : (
+            'Para visualizar todas as informações do boicote, clique no título ou no botão Ver Tudo.'
+          )}
+      </p>
       {boicotes.map((boicote) => (
         <BoicotesMultiplos
           key={String(boicote.id)}
@@ -139,7 +164,7 @@ function Boicotes() {
         />
       )}
 
-    </div>
+    </>
 
   );
 }

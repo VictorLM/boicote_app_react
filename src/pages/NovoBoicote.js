@@ -133,9 +133,7 @@ function NovoBoicote() {
 
   return (
     <>
-      <hr />
-      <h1 className="text-center">Novo Boicote</h1>
-      <hr />
+      <h1 className="text-center my-4 header">NOVO BOICOTE</h1>
       <NovoBoicoteForm
         loading={loadingCasdastrarNovoBoicote}
         boicoteCadastradoComSucesso={boicoteCadastradoComSucesso}

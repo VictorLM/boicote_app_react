@@ -54,7 +54,7 @@ function ConfirmarBoicote() {
 
   return (
 
-    <Card className="m-4 px-4" bg="secondary" border="dark">
+    <Card className="px-4" bg="secondary" border="dark">
       <Card.Body className="mt-2 pb-0">
 
         {erro

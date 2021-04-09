@@ -16,7 +16,7 @@ function PaginationBoicotes({ boicotesCount, boicotesPorPagina, pagina }) {
     );
   }
 
-  return (<Pagination className="mx-3 mt-3">{items}</Pagination>);
+  return (<Pagination className="mx-2 mt-3">{items}</Pagination>);
 }
 
 export default PaginationBoicotes;

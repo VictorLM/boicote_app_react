@@ -128,7 +128,7 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
         denunciar={denunciar}
       />
 
-      <Card className="mx-3" bg="secondary" border="dark">
+      <Card className="" bg="secondary" border="dark">
         <Card.Header className="py-0 d-flex">
           <ArrowsDiv>
             <SpanInlineBlock className="m-0 p-0">
@@ -266,7 +266,6 @@ export default Boicote;
 
 const LinkLikeSpan = styled.span`
   cursor: pointer;
-  transition: 0.3s ease-out;
   margin-right: .5em;
   &:hover {
     color: lightgrey!important;

@@ -5,10 +5,8 @@ import styled from 'styled-components';
 
 const Sobre = () => (
   <>
-    <hr />
-    <h1 className="text-center">Sobre</h1>
-    <hr />
-    <Card className="m-4 px-4" bg="secondary" border="dark">
+    <h1 className="text-center mb-3">Sobre</h1>
+    <Card className="px-4" bg="secondary" border="dark">
       <Card.Body className="mt-2 pb-0">
 
         <h2 className="text-center">
@@ -24,7 +22,7 @@ const Sobre = () => (
           {' '}
           Também há um sistema de denúncias, para manter a comunidade mais saudável
           {' '}
-          e as informações filtradas.
+          e as informações filtradas. Patrique o consumo consciente. Consumir é um ato político.
         </Card.Text>
         <Card.Text className="text-justify">
           Desenvolvido e mantido por mim, Victor Meireles, eterno Águia II.
@@ -76,7 +74,6 @@ const MenuStyledLink = styled.a`
   color: #fff!important;
   padding-right: .5rem!important;
   padding-left: .5rem!important;
-  transition: 0.3s ease-out;
   &:hover {
     color: ${(props) => props.twitter && '#1DA1F2!important'
       || props.facebook && '#3b5998!important'

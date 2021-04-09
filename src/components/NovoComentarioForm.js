@@ -10,7 +10,7 @@ function NovoComentarioForm({
   loading, setNome, setEmail, setComentario, nome, email, comentario, comentar,
 }) {
   return (
-    <Card className="mx-3" bg="secondary" border="dark">
+    <Card bg="secondary" border="dark">
       <Card.Body className="mt-2 pb-0 px-4">
         <Form>
 

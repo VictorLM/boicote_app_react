@@ -14,7 +14,7 @@ function NovoBoicoteForm({
 }) {
   if (boicoteCadastradoComSucesso) {
     return (
-      <Card className="m-4 px-4" bg="secondary" border="dark">
+      <Card className="px-4" bg="secondary" border="dark">
         <Card.Body className="mt-2 pb-0">
           <h3 className="text-center">
             Boicote cadastrado com sucesso!
@@ -32,8 +32,8 @@ function NovoBoicoteForm({
   }
 
   return (
-    <Card className="m-4" bg="secondary" border="dark">
-      <Card.Body className="mt-2 px-4">
+    <Card className="px-4 border-0 shadow">
+      <Card.Body className="mt-2">
 
         {loading
           ? <LoadingGrande />
@@ -49,13 +49,13 @@ function NovoBoicoteForm({
                 <Col md={6}>
                   <Form.Group className="mb-0" controlId="formBasicEmail">
                     <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Seu e-mail" />
-                    <SmallStyled>
+                    <SmallStyled className="text-muted">
                       Seu e-mail não será exibido.
                     </SmallStyled>
                   </Form.Group>
                 </Col>
               </Row>
-              <hr />
+              <br />
               <Row>
                 <Col md={6}>
                   <Form.Group controlId="formBasicNome">
@@ -72,14 +72,14 @@ function NovoBoicoteForm({
               <Row>
                 <Col>
                   <Form.Group controlId="formBasicNome.ControlTextarea1">
-                    <Form.Label>Texto:</Form.Label>
+                    <Form.Label className="text-secondary">Texto:</Form.Label>
                     <Form.Control
                       as="textarea"
                       value={texto}
                       rows={5}
                       onChange={(e) => setTexto(e.target.value)}
                     />
-                    <SmallStyled>
+                    <SmallStyled className="text-muted">
                       Máximo 2000 caracteres.
                     </SmallStyled>
                   </Form.Group>
@@ -88,7 +88,7 @@ function NovoBoicoteForm({
               <Row>
                 <Col>
                   <Form.Group controlId="formBasicNome">
-                    <Form.Label>Tags:</Form.Label>
+                    <Form.Label className="text-secondary">Tags:</Form.Label>
                     <Form.Control
                       type="text"
                       value={tags}
@@ -101,14 +101,14 @@ function NovoBoicoteForm({
               <Row>
                 <Col>
                   <Form.Group controlId="formBasicNome.ControlTextarea2">
-                    <Form.Label>Links:</Form.Label>
+                    <Form.Label className="text-secondary">Links:</Form.Label>
                     <Form.Control
                       as="textarea"
                       value={links}
                       onChange={(e) => setLinks(e.target.value)}
                       placeholder="Separe on Links com uma vírgula: https://site.com/noticia-um, https://site.com/noticia-dois"
                     />
-                    <SmallStyled>
+                    <SmallStyled className="text-muted">
                       Máximo três links.
                     </SmallStyled>
                   </Form.Group>
@@ -122,8 +122,8 @@ function NovoBoicoteForm({
 
       {!loading
         && (
-        <Card.Footer className="text-right">
-          <Button onClick={(e) => cadastrarNovoBoicote(e)} size="lg" variant="dark" type="submit">
+        <Card.Footer className="text-right bg-transparent">
+          <Button onClick={(e) => cadastrarNovoBoicote(e)} size="lg" className="btn-padrao" type="submit">
             Enviar
           </Button>
         </Card.Footer>

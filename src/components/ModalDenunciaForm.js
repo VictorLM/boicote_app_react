@@ -19,12 +19,12 @@ function ModalDenunciaForm({
       centered
       animation={false}
     >
-      <Modal.Header className="bg-secondary border-dark" closeButton>
+      <Modal.Header className="bg-secondary" closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Enviar uma denúncia
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body className="bg-secondary border-dark">
+      <Modal.Body className="bg-secondary">
         <Form>
 
           <Form.Group controlId="formBasicNome">

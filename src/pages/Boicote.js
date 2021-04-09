@@ -192,9 +192,7 @@ function Boicote() {
           ? Number(votos[votos.findIndex((voto) => voto.boicoteId === boicote.id)].cima)
           : null}
       />
-      <hr />
-      <h2 className="text-center">Comentar</h2>
-      <hr />
+      <h2 className="text-center my-4">Comentar</h2>
       <NovoComentarioForm
         loading={loadingComentar}
         nome={nome}
@@ -205,9 +203,7 @@ function Boicote() {
         setComentario={setComentario}
         comentar={comentar}
       />
-      <hr />
-      <h2 className="text-center">Comentários</h2>
-      <hr />
+      <h2 className="text-center my-4">Comentários</h2>
       {loadingComentarios
         ? <LoadingGrande />
         : [

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { primaryColor, grayColor } from '../../config/colors';
 
 const Menu = () => (
   <>
@@ -14,12 +15,11 @@ const Menu = () => (
 export default Menu;
 
 const MenuStyled = styled(Link)`
-  color: #3B3A3A!important;
+  color: ${grayColor}!important;
   padding-right: 1rem!important;
   padding-left: 1rem!important;
-  transition: 0.3s ease-out;
   &:hover {
-    background-color: #3B3A3A;
+    background-color: ${primaryColor};
     color: #fff!important;
   }
 `;
