@@ -92,7 +92,7 @@ function Boicotes() {
       <>
         {homePage
           ? (
-            <h2 className="text-center my-4 header">
+            <h2 className="text-center mt-5 mb-3 header">
               BOICOTES RECENTES
             </h2>
           ) : (
@@ -110,7 +110,7 @@ function Boicotes() {
       <>
         {homePage
           ? (
-            <h2 className="text-center my-4 header">
+            <h2 className="text-center mt-5 mb-3 header">
               BOICOTES RECENTES
             </h2>
           ) : (
@@ -128,7 +128,7 @@ function Boicotes() {
 
       {homePage
         ? (
-          <h2 className="text-center my-4 header">
+          <h2 className="text-center mt-5 mb-3 header">
             BOICOTES RECENTES
           </h2>
         ) : (

@@ -19,11 +19,9 @@ function App() {
       <Container className="container-main">
 
         <Header />
-
-        <Rotas />
-
         <hr />
-
+        <Rotas />
+        <hr />
         <Footer />
 
       </Container>

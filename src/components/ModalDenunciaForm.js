@@ -21,7 +21,7 @@ function ModalDenunciaForm({
     >
       <Modal.Header className="bg-white" closeButton>
         <Modal.Title className="header" id="contained-modal-title-vcenter">
-          ENVIAR UM DENÚNCIA
+          ENVIAR UMA DENÚNCIA
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className="bg-white">

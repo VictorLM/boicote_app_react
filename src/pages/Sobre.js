@@ -23,7 +23,7 @@ const Sobre = () => (
           {' '}
           Também há um sistema de denúncias, para manter a comunidade mais saudável
           {' '}
-          e as informações filtradas. Patrique o consumo consciente. Consumir é um ato político.
+          e as informações filtradas. Pratique o consumo consciente. Consumir é um ato político.
         </Card.Text>
         <Card.Text className="text-justify">
           Desenvolvido e mantido por mim, Victor Meireles, eterno Águia II.

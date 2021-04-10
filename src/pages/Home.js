@@ -15,16 +15,18 @@ import {
 
 const Home = () => (
   <>
-    <Jumbo className="border-bottom">
+    <Jumbo>
       <JumboTitle className={`text-center text-primary zoom-hover ${window.innerWidth <= 576 ? 'display-4' : 'display-3'}`}>
         Consumir é um ato
         <br />
         Político
       </JumboTitle>
-      <JumboSubTitle className="text-center text-gray">Patrique o consumo consciente</JumboSubTitle>
+      <JumboSubTitle className="text-center text-gray">Pratique o consumo consciente</JumboSubTitle>
     </Jumbo>
 
-    <h1 className="text-center mb-4 header">
+    <hr />
+
+    <h1 className="text-center my-5 header">
       COMO FUNCIONA?
     </h1>
 
@@ -54,7 +56,7 @@ const Home = () => (
             </Card.Title>
             Interaja com a comunidade votando e comentando nos boicotes.
             Para votar nos boicotes, use as setas ao lado esquerdo do título.
-            Para comentar, preencha o formulário dentro da página do boicote.
+            Para comentar, preencha o formulário na página do boicote.
           </Card.Body>
         </Card>
       </Col>
@@ -84,9 +86,9 @@ const Home = () => (
               Denuncie
             </Card.Title>
             Denuncie boicotes e comentários inapropriados.
-            Utilize o link Denunciar, localizado
-            no rodapé tanto dos boicotes quanto dos comentários, à direita.
-            Sua ajuda para manter a comunidade limpa será muito bem vinda.
+            Utilize o link Denunciar, localizado à direita
+            do rodapé tanto dos boicotes quanto dos comentários.
+            Sua ajuda para manter a comunidade limpa será muito bem-vinda.
           </Card.Body>
         </Card>
       </Col>
@@ -99,8 +101,8 @@ const Home = () => (
               Compartilhe
             </Card.Title>
             Compartilhe os boicotes nas redes sociais para ter um maior alcance e engajamento.
-            Para faze-lo, utilize o link Compartilhar, localizado
-            no rodapé dos boicotes, à direita.
+            Utilize o link Compartilhar, localizado à direita
+            do rodapé dos boicotes.
           </Card.Body>
         </Card>
       </Col>
@@ -113,14 +115,14 @@ const Home = () => (
               Pratique
             </Card.Title>
             Boicote as empresas e marcas com seu poder de compra.
-            Não de lucros para quem apoia, pratica ou corrobora com atos nocivos,
-            fake news, discurso de ódio e etc. Patrique o consumo consciente.
+            Não de lucros para quem apoia, pratica ou corrobora com atos e ideias nocivas,
+            fake news, discurso de ódio, etc. Pratique o consumo consciente.
           </Card.Body>
         </Card>
       </Col>
     </Row>
 
-    <hr className="hr-colored" />
+    <hr />
 
     <Boicotes />
 
@@ -132,7 +134,7 @@ export default Home;
 // Styled Components
 
 const Jumbo = styled(Jumbotron)`
-  padding: 6rem 2rem;
+  padding: 5rem 2rem;
   border-radius: unset!important;
   background-color: ${backgroundColor}!important;
 `;

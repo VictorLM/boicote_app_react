@@ -135,7 +135,7 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
         <Card.Body className="pr-md-5">
 
           <Row>
-            <Col xs={12} md={1} className="text-center">
+            <Col xs={0} md={1} className="text-center d-none d-md-block">
               <span className="m-0 p-0 d-block">
                 <ArrowUp voto={votoBoicote} onClick={() => votar(true)} size={30} title="Votor para cima" />
               </span>
@@ -221,43 +221,65 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
               <div className="text-center">
 
                 <Row>
-                  <Col md={6} className="text-md-left text-gray">
-                    <span className="ml-2 d-inline-flex text-pouco-menor">
-                      <FaComment />
-              &nbsp;
-                      {boicote.comentariosCount}
-                      {' '}
-                      {boicote.comentariosCount > 1 ? 'comentários' : 'comentário' }
+
+                  <Col xs={4} md={0} className="d-block d-md-none text-center">
+                    <span className="m-0 p-0 d-block">
+                      <ArrowUp voto={votoBoicote} onClick={() => votar(true)} size={30} title="Votor para cima" />
+                    </span>
+                    <span className="m-0 p-0 d-block">
+                      <span className="h6" title="Votos para cima"><b>{votosBoicoteCount}</b></span>
+                    </span>
+                    <span className="m-0 p-0 d-block">
+                      <ArrowDown voto={votoBoicote} onClick={() => votar(false)} size={30} title="Votor para baixo" />
                     </span>
                   </Col>
-                  <Col md={6} className="text-md-right pr-0">
-                    {boicoteUnico
-                      ? (
-                        <>
-                          {/* TODO - POPOVER NÃO FECHA AO CLICAR FORA DO TRIGGER */}
-                          <CompartilharBtnsPopover
-                            show={compartilharBtnsPopoverShow}
-                            target={compartilharBtnsPopoverTarget}
-                            url={window.location.href}
-                          />
-                          <LinkLikeSpan id="compartilhar-btn" onClick={() => setCompartilharBtnsPopoverShow(!compartilharBtnsPopoverShow)}>
-                            <FaShareSquare />
-                            <small> Compartilhar </small>
-                          </LinkLikeSpan>
-                          <LinkLikeSpan onClick={() => setModalDenunciaFormShow(true)}>
-                            <FaFlag />
-                            <small> Denunciar</small>
-                          </LinkLikeSpan>
-                        </>
-                      ) : (
-                        <>
-                          <span className="d-block d-md-none"><br /></span>
-                          <Link to={`/boicotes/${boicote.id}`}>
-                            <Button className="btn-padrao" type="button" size="sm">Ver tudo</Button>
-                          </Link>
-                        </>
-                      )}
+
+                  <Col xs={8} md={12} className="">
+
+                    <Row>
+
+                      <Col md={6} className="text-right text-md-left text-gray mb-2 mb-md-0">
+                        <span className="ml-2 d-inline-flex text-pouco-menor">
+                          <FaComment />
+              &nbsp;
+                          {boicote.comentariosCount}
+                          {' '}
+                          {boicote.comentariosCount > 1 ? 'comentários' : 'comentário' }
+                        </span>
+                      </Col>
+                      <Col md={6} className="text-right">
+                        {boicoteUnico
+                          ? (
+                            <>
+                              {/* TODO - POPOVER NÃO FECHA AO CLICAR FORA DO TRIGGER */}
+                              <CompartilharBtnsPopover
+                                show={compartilharBtnsPopoverShow}
+                                target={compartilharBtnsPopoverTarget}
+                                url={window.location.href}
+                              />
+                              <LinkLikeSpan className="d-block d-md-inline" id="compartilhar-btn" onClick={() => setCompartilharBtnsPopoverShow(!compartilharBtnsPopoverShow)}>
+                                <FaShareSquare />
+                                <small> Compartilhar </small>
+                              </LinkLikeSpan>
+                              <LinkLikeSpan className="d-block d-md-inline" onClick={() => setModalDenunciaFormShow(true)}>
+                                <FaFlag />
+                                <small> Denunciar</small>
+                              </LinkLikeSpan>
+                            </>
+                          ) : (
+                            <>
+                              <span className="d-block d-md-none"><br /></span>
+                              <Link to={`/boicotes/${boicote.id}`}>
+                                <Button className="btn-padrao" type="button" size="sm">Ver tudo</Button>
+                              </Link>
+                            </>
+                          )}
+                      </Col>
+
+                    </Row>
+
                   </Col>
+
                 </Row>
 
               </div>

@@ -5,7 +5,7 @@ import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 import styled from 'styled-components';
 import Menu from './Menu';
 import Logo from '../../assets/images/logo-png-sm.png';
-import { primaryColor, grayColor } from '../../config/colors';
+import { primaryColor } from '../../config/colors';
 
 const Header = () => (
   <HeaderStyled expand="lg">
@@ -41,7 +41,6 @@ const HeaderStyled = styled(Navbar)`
   font-size: 1.5rem;
   padding-top: 0;
   padding-bottom: 0;
-  border-bottom: 1px solid ${grayColor}!important;
 `;
 
 const MenuStyledNavLink = styled(Nav.Link)`

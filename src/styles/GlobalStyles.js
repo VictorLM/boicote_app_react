@@ -81,13 +81,6 @@ export default createGlobalStyle`
     color: ${primaryColor};
     font-weight: bold;
   }
-  .border-bottom {
-    border-radius: unset!important;
-    border-bottom: 1px solid ${grayColor}!important;
-  }
-  .hr-colored {
-    border-top: 1px solid ${grayColor}!important;
-  }
   .btn-padrao {
     color: ${secondaryColor};
     border: 2px solid ${secondaryColor};
