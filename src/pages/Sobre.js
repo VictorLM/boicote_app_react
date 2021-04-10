@@ -2,16 +2,17 @@ import React from 'react';
 import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 import { Card } from 'react-bootstrap';
 import styled from 'styled-components';
+import { primaryColor } from '../config/colors';
 
 const Sobre = () => (
   <>
-    <h1 className="text-center mb-3">Sobre</h1>
-    <Card className="px-4" bg="secondary" border="dark">
+    <h1 className="text-center my-4 header">SOBRE</h1>
+    <Card className="px-4 border-0 shadow">
       <Card.Body className="mt-2 pb-0">
 
-        <h2 className="text-center">
-          Boicote.App - versão 1.0.0
-        </h2>
+        <h3 className="text-center text-dark header">
+          BOICOTE.APP - VERSÃO 1.0.0
+        </h3>
         <hr />
         <Card.Text className="text-justify">
           Boicote.App foi desenvolvido com o objetivo de centralizar os boicotes na internet.
@@ -28,10 +29,10 @@ const Sobre = () => (
           Desenvolvido e mantido por mim, Victor Meireles, eterno Águia II.
           Você pode me encontrar no Twitter em
           {' '}
-          <StyledLink href="https://twitter.com/IAmDinamite/" target="_blank" rel="noreferrer">@IAmDinamite</StyledLink>
+          <a href="https://twitter.com/IAmDinamite/" target="_blank" rel="noreferrer">@IAmDinamite</a>
           , ou através do e-mail
           {' '}
-          <StyledLink href="mailto:boicoteapp@gmail.com">boicoteapp@gmail.com</StyledLink>
+          <a href="mailto:boicoteapp@gmail.com">boicoteapp@gmail.com</a>
           .
         </Card.Text>
         <Card.Text className="text-justify">
@@ -41,17 +42,16 @@ const Sobre = () => (
         <Card.Text className="text-justify">
           Boicote.App é um projeto independente e sem fins lucrativos. Por favor, não quebre-o.
         </Card.Text>
-        <Card.Text className="text-justify">
-          &#8220;
-          <i> É vivendo que se aprende </i>
-          &#8222;
-          &nbsp;&nbsp; — Pistoleiro Papaco.
-        </Card.Text>
+        <blockquote className="blockquote">
+          <p className="mb-0">É vivendo que se aprende.</p>
+          <footer className="blockquote-footer">
+            <cite title="Fonte">Pistoleiro Papaco</cite>
+          </footer>
+        </blockquote>
         <hr />
-        <h2 className="text-center">
-          Redes sociais
-        </h2>
-        <hr />
+        <h3 className="text-center text-dark header mb-4">
+          REDES SOCIAIS
+        </h3>
         <Card.Text className="text-center mb-4">
           <MenuStyledLink twitter="true" className="d-inline" href="https://twitter.com/boicoteapp/" target="_blank" rel="noreferrer">
             <FaTwitter size={50} />
@@ -71,7 +71,7 @@ const Sobre = () => (
 export default Sobre;
 
 const MenuStyledLink = styled.a`
-  color: #fff!important;
+  color: ${primaryColor}!important;
   padding-right: .5rem!important;
   padding-left: .5rem!important;
   &:hover {
@@ -80,8 +80,4 @@ const MenuStyledLink = styled.a`
       || props.instagram && '#E1306C!important'
 };
   }
-`;
-
-const StyledLink = styled.a`
-  color: #00bfff!important;
 `;

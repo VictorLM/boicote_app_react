@@ -142,7 +142,7 @@ function Boicotes() {
             'Veja abaixo os últimos Boicote cadastrados. Para visualizar todos, '
             + 'selecione a opção Boicotes no menu localizado no topo da página.'
           ) : (
-            'Para visualizar todas as informações do boicote, clique no título ou no botão Ver Tudo.'
+            'Para visualizar todas as informações do boicote, clique no título ou no botão Ver tudo.'
           )}
       </p>
       {boicotes.map((boicote) => (

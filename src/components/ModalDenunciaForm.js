@@ -19,12 +19,12 @@ function ModalDenunciaForm({
       centered
       animation={false}
     >
-      <Modal.Header className="bg-secondary" closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Enviar uma denúncia
+      <Modal.Header className="bg-white" closeButton>
+        <Modal.Title className="header" id="contained-modal-title-vcenter">
+          ENVIAR UM DENÚNCIA
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body className="bg-secondary">
+      <Modal.Body className="bg-white">
         <Form>
 
           <Form.Group controlId="formBasicNome">
@@ -33,15 +33,15 @@ function ModalDenunciaForm({
 
           <Form.Group controlId="formBasicEmail">
             <Form.Control type="email" onChange={(e) => setEmail(e.target.value)} placeholder="Seu e-mail" />
-            <SmallStyled>
+            <SmallStyled className="text-muted">
               Seu e-mail não será exibido.
             </SmallStyled>
           </Form.Group>
 
           <Form.Group controlId="formBasicNome.ControlTextarea1">
-            <Form.Label>Motivo:</Form.Label>
+            <Form.Label className="text-secondary">Motivo:</Form.Label>
             <Form.Control as="textarea" onChange={(e) => setTexto(e.target.value)} rows={2} />
-            <SmallStyled>
+            <SmallStyled className="text-muted">
               Máximo 255 caracteres.
             </SmallStyled>
           </Form.Group>
@@ -50,7 +50,7 @@ function ModalDenunciaForm({
             {loading
               ? <LoadingPequeno />
               : (
-                <Button onClick={(e) => denunciar(e)} variant="dark" type="submit">
+                <Button onClick={(e) => denunciar(e)} className="btn-padrao" type="submit">
                   Enviar
                 </Button>
               )}

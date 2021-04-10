@@ -54,29 +54,29 @@ function ConfirmarBoicote() {
 
   return (
 
-    <Card className="px-4" bg="secondary" border="dark">
+    <Card className="p-4 my-5 border-0 shadow">
       <Card.Body className="mt-2 pb-0">
 
         {erro
           ? (
             <>
-              <h3 className="text-center">
-                Erro ao confirmar
+              <h3 className="text-center header">
+                ERRO AO CONFIRMAR BOICOTE
               </h3>
               <h1 className="text-center display-1">
                 <FaExclamationCircle className="text-danger" />
               </h1>
-              <h5 className="text-center mt-4 mb-5">{confirmarErro}</h5>
+              <h5 className="text-center text-primary mt-4 mb-5">{confirmarErro}</h5>
             </>
           ) : (
             <>
-              <h3 className="text-center">
-                Boicote confirmado com sucesso!
+              <h3 className="text-center header">
+                BOICOTE CONFIRMADO COM SUCESSO!
               </h3>
               <h1 className="text-center display-1">
                 <FaCheckCircle className="text-success" />
               </h1>
-              <h5 className="text-center mt-4 mb-5">
+              <h5 className="text-center text-primary mt-4 mb-5">
                 Aguarde um momento, em breve você será redirecionado(a) para visualiza-lo.
               </h5>
               {redirect && <Redirect to={`/boicotes/${boicoteId}`} />}

@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Card } from 'react-bootstrap';
-import { FaCalendar, FaFlag } from 'react-icons/fa';
+import { FaFlag } from 'react-icons/fa';
 import { isEmail } from 'validator';
 import { toast } from 'react-toastify';
 
 import axios from '../config/axios';
 import ModalDenunciaForm from './ModalDenunciaForm';
+import {
+  primaryColor, secondaryColor,
+} from '../config/colors';
 
 function Comentario({ comentario }) {
   const [comentarioIdDenuncia, setComentarioIdDenuncia] = useState('');
@@ -82,29 +85,22 @@ function Comentario({ comentario }) {
         denunciar={denunciar}
       />
 
-      <Card bg="secondary" border="dark">
+      <Card className="border-0 shadow p-2">
         {/* TODO COMENTÁRIO CONFIAVÉL - AJUSTAR API PRIMEIRO */}
         <Card.Body>
           <Card.Text>
-            {comentario.comentario}
-          </Card.Text>
-          <Card.Text>
-            <span>
-              <i>
-                {'- '}
-                {comentario.Autor.nome}
-              </i>
+            <span className="text-gray text-pouco-menor">
+              {' Postado por '}
+              <b>{comentario.Autor.nome}</b>
+              {' em '}
+              {new Date(comentario.createdAt).toLocaleString().slice(0, 16)}
             </span>
           </Card.Text>
+          <Card.Text>
+            {comentario.comentario}
+          </Card.Text>
         </Card.Body>
-        <Card.Footer>
-          <div className="d-inline-flex">
-            <Span className="mr-2">
-              <FaCalendar />
-                  &nbsp;
-              {new Date(comentario.createdAt).toLocaleString().slice(0, 16)}
-            </Span>
-          </div>
+        <Card.Footer className="bg-white">
           <div className="float-right">
             <LinkLikeSpan onClick={() => {
               setModalDenunciaFormShow(true);
@@ -125,15 +121,11 @@ export default Comentario;
 
 // Styled Components
 
-const Span = styled.span`
-  display: inline-flex;
-  align-items: baseline;
-`;
-
 const LinkLikeSpan = styled.span`
   cursor: pointer;
-  margin: 0 .5em 0 .5em;
+  margin-right: .5em;
+  color: ${secondaryColor}!important;
   &:hover {
-    color: lightgrey!important;
+    color: ${primaryColor}!important;
   }
 `;

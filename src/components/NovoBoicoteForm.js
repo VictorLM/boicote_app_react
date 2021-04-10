@@ -14,16 +14,16 @@ function NovoBoicoteForm({
 }) {
   if (boicoteCadastradoComSucesso) {
     return (
-      <Card className="px-4" bg="secondary" border="dark">
+      <Card className="px-4 border-0 shadow">
         <Card.Body className="mt-2 pb-0">
-          <h3 className="text-center">
-            Boicote cadastrado com sucesso!
+          <h3 className="text-center header">
+            BOICOTE CADASTRADO COM SUCESSO!
           </h3>
           <h1 className="text-center display-1">
             <FaCheckCircle className="text-success" />
           </h1>
-          <h5 className="text-justify mt-4 mb-5">
-            Para finalizar o cadastro ainda é necessário confirmar a
+          <h5 className="text-justify text-primary mt-4 mb-5">
+            Para finalizar, ainda é necessário confirmar a
             mensagem que enviamos ao e-mail informado no cadastro.
           </h5>
         </Card.Body>

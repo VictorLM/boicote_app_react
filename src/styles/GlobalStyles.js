@@ -21,10 +21,15 @@ export default createGlobalStyle`
   }
   .container-main{
     min-height: 100%;
-    padding: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   a {
     text-decoration: none!important;
+    color: ${secondaryColor}!important;
+  }
+  a:hover {
+    color: ${primaryColor}!important;
   }
   a, button, span {
     transition: 0.3s ease-out!important;
@@ -42,7 +47,11 @@ export default createGlobalStyle`
   .text-muted {
     color: ${lightGrayColor}!important;
   }
-  //
+  // BACKGROUN COLORS
+  .bg-secondary {
+    background-color: ${secondaryColor}!important;
+  }
+
   // REACT SHARE BTNS
   .react-share__ShareButton:hover {
     opacity: 0.6;
@@ -93,6 +102,14 @@ export default createGlobalStyle`
     &:hover{
       transform: scale(1.05);
     }
+  }
+  .vertical-center {
+    min-height: 100%;
+    display: grid;
+    align-items: center;
+  }
+  .text-pouco-menor {
+    font-size: .94rem!important;
   }
 
 `;

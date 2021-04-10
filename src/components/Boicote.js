@@ -4,15 +4,18 @@ import { Link } from 'react-router-dom';
 import { isEmail } from 'validator';
 import { toast } from 'react-toastify';
 import {
-  Card, Badge, Button, Row, Col,
+  Card, Button, Row, Col,
 } from 'react-bootstrap';
 import {
-  FaCalendar, FaComment, FaArrowUp, FaArrowDown, FaFlag, FaShareSquare,
+  FaComment, FaArrowUp, FaArrowDown, FaFlag, FaShareSquare,
 } from 'react-icons/fa';
 
 import axios from '../config/axios';
 import ModalDenunciaForm from './ModalDenunciaForm';
 import CompartilharBtnsPopover from './CompartilharBtnsPopover';
+import {
+  primaryColor, secondaryColor, orange, grayColor,
+} from '../config/colors';
 
 const Boicote = ({ boicote, boicoteUnico, voto }) => {
   const [votoBoicote, setVotoBoicote] = useState(voto);
@@ -128,134 +131,154 @@ const Boicote = ({ boicote, boicoteUnico, voto }) => {
         denunciar={denunciar}
       />
 
-      <Card className="" bg="secondary" border="dark">
-        <Card.Header className="py-0 d-flex">
-          <ArrowsDiv>
-            <SpanInlineBlock className="m-0 p-0">
-              <ArrowUp voto={votoBoicote} onClick={() => votar(true)} size={15} title="Votor para cima" />
-            </SpanInlineBlock>
-            <SpanInlineBlock className="m-0 p-0">
-              <small title="Votos para cima"><b>{votosBoicoteCount}</b></small>
-            </SpanInlineBlock>
-            <SpanInlineBlock className="m-0 p-0">
-              <ArrowDown voto={votoBoicote} onClick={() => votar(false)} size={15} title="Votor para baixo" />
-            </SpanInlineBlock>
-          </ArrowsDiv>
-          <BoicoteTitle>
-            {boicoteUnico
-              ? (
-                <h3 className="m-0 ml-3 d-inline text-center text-md-left">{boicote.titulo}</h3>
-              ) : (
-                <BoicoteLink className="text-center text-md-left" to={`/boicotes/${boicote.id}`}>
-                  <h3 className="m-0 ml-3 d-inline">{boicote.titulo}</h3>
-                </BoicoteLink>
-              )}
-          </BoicoteTitle>
-        </Card.Header>
-        <Card.Body>
-          <div className="d-block d-md-inline mr-2">
-            Empresa:
-            <span className="h5">
-              <Badge className="mr-2 ml-2" variant="light">
-                <b>
-                  {' '}
-                  {boicote.marca}
-                </b>
-              </Badge>
-            </span>
-          </div>
-          <div className="d-block d-md-inline">
-            Autor:
-            <span className="d-xs-block d-md-none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <span className="h5">
-              <Badge className="ml-2" variant="light">
-                <b>
-                  {' '}
-                  {boicote.autor.nome}
-                </b>
-              </Badge>
-            </span>
-          </div>
-          <hr />
-          <Card.Text className="text-justify">
-            {boicoteUnico ? boicote.texto : `${boicote.texto.substr(0, 200)}...`}
-          </Card.Text>
-          {boicoteUnico
-            && (
-            <>
-              <hr />
-              <Card.Text>
-                <span><b>Links:</b></span>
-                {Object.values(boicote.links).map((link) => (
-                  <span className="mb-1 d-block" key={link.link}>
-                    <a href={link.link} className="text-white" target="_blank" rel="noreferrer"><i>{link.link}</i></a>
-                    {/* TODO LINK CONFIAVÉL - AJUSTAR API PRIMEIRO */}
-                  </span>
-                ))}
-              </Card.Text>
-            </>
-            )}
-
-          <hr />
-          <Card.Text>
-            <small>Tags:&nbsp;</small>
-            {Object.values(boicote.tags).map((tag) => (
-              <Badge key={tag} className="mr-1" pill variant="light">
-                <i>{tag}</i>
-              </Badge>
-            ))}
-          </Card.Text>
-        </Card.Body>
-        <Card.Footer className="text-center">
+      <Card className="border-0 shadow">
+        <Card.Body className="pr-md-5">
 
           <Row>
-            <Col md={6} className="text-md-left">
-              <span className="d-inline-flex align-items-baseline mr-2">
-                <FaCalendar />
-              &nbsp;
-                {new Date(boicote.createdAt).toLocaleString().slice(0, 16)}
+            <Col xs={12} md={1} className="text-center">
+              <span className="m-0 p-0 d-block">
+                <ArrowUp voto={votoBoicote} onClick={() => votar(true)} size={30} title="Votor para cima" />
               </span>
-              <span className="d-inline-flex align-items-baseline ml-2">
-                <FaComment />
-              &nbsp;
-                {boicote.comentariosCount}
-                {' '}
-                comentários
+              <span className="m-0 p-0 d-block">
+                <span className="h6" title="Votos para cima"><b>{votosBoicoteCount}</b></span>
+              </span>
+              <span className="m-0 p-0 d-block">
+                <ArrowDown voto={votoBoicote} onClick={() => votar(false)} size={30} title="Votor para baixo" />
               </span>
             </Col>
-            <Col md={6} className="text-md-right">
+
+            <Col xs={12} md={11}>
+
+              <Row>
+
+                <Col xs={12} md={10} className="">
+
+                  <small className="text-gray">
+                    {Object.values(boicote.tags).map((tag, index) => (
+                      <i key={tag}>
+                        <b>
+                          {tag}
+                          {Object.values(boicote.tags).length !== index + 1 && ', '}
+                        </b>
+                      </i>
+                    ))}
+                  </small>
+
+                  <Card.Title className="mt-1 mb-0">
+                    {boicoteUnico
+                      ? (
+                        <h4 className="m-0 text-primary">{boicote.titulo}</h4>
+                      ) : (
+                        <Link to={`/boicotes/${boicote.id}`}>
+                          <Title className="m-0">{boicote.titulo}</Title>
+                        </Link>
+                      )}
+                  </Card.Title>
+                  <small className="text-muted">
+                    {' '}
+                    Postado por
+                    {' '}
+                    <b>{boicote.autor.nome}</b>
+                    {' '}
+                    em
+                    {' '}
+                    {new Date(boicote.createdAt).toLocaleString().slice(0, 16)}
+                  </small>
+
+                </Col>
+
+                <Col xs={12} md={2} className="text-gray text-center w-auto mt-2 mt-md-0">
+                  <MarcaDiv className="vertical-center p-3 p-md-0">
+                    <span className="text-pouco-menor">{boicote.marca}</span>
+                  </MarcaDiv>
+                </Col>
+
+              </Row>
+
+              <hr />
+
+              <Card.Text className="text-justify my-3">
+                {boicoteUnico ? boicote.texto : `${boicote.texto.substr(0, 235)}...`}
+              </Card.Text>
+
+              <hr />
+
               {boicoteUnico
-                ? (
-                  <>
-                    {/* TODO - POPOVER NÃO FECHA AO CLICAR FORA DO TRIGGER */}
-                    <CompartilharBtnsPopover
-                      show={compartilharBtnsPopoverShow}
-                      target={compartilharBtnsPopoverTarget}
-                      url={window.location.href}
-                    />
-                    <LinkLikeSpan id="compartilhar-btn" onClick={() => setCompartilharBtnsPopoverShow(!compartilharBtnsPopoverShow)}>
-                      <FaShareSquare />
-                      <small> Compartilhar</small>
-                    </LinkLikeSpan>
-                    <LinkLikeSpan onClick={() => setModalDenunciaFormShow(true)}>
-                      <FaFlag />
-                      <small> Denunciar</small>
-                    </LinkLikeSpan>
-                  </>
-                ) : (
-                  <>
-                    <span className="d-block d-md-none"><br /></span>
-                    <BoicoteLink to={`/boicotes/${boicote.id}`}>
-                      <Button variant="dark" type="button" size="sm">Ver tudo</Button>
-                    </BoicoteLink>
-                  </>
-                )}
+              && (
+              <>
+                <Card.Text>
+                  {Object.values(boicote.links).map((link) => (
+                    <span className="mb-1 d-block" key={link.link}>
+                      <a href={link.link} target="_blank" rel="noreferrer"><i>{link.link}</i></a>
+                      {/* TODO LINK CONFIAVÉL - AJUSTAR API PRIMEIRO */}
+                    </span>
+                  ))}
+                </Card.Text>
+                <hr />
+              </>
+              )}
+
+              <div className="text-center">
+
+                <Row>
+                  <Col md={6} className="text-md-left text-gray">
+                    <span className="ml-2 d-inline-flex text-pouco-menor">
+                      <FaComment />
+              &nbsp;
+                      {boicote.comentariosCount}
+                      {' '}
+                      {boicote.comentariosCount > 1 ? 'comentários' : 'comentário' }
+                    </span>
+                  </Col>
+                  <Col md={6} className="text-md-right pr-0">
+                    {boicoteUnico
+                      ? (
+                        <>
+                          {/* TODO - POPOVER NÃO FECHA AO CLICAR FORA DO TRIGGER */}
+                          <CompartilharBtnsPopover
+                            show={compartilharBtnsPopoverShow}
+                            target={compartilharBtnsPopoverTarget}
+                            url={window.location.href}
+                          />
+                          <LinkLikeSpan id="compartilhar-btn" onClick={() => setCompartilharBtnsPopoverShow(!compartilharBtnsPopoverShow)}>
+                            <FaShareSquare />
+                            <small> Compartilhar </small>
+                          </LinkLikeSpan>
+                          <LinkLikeSpan onClick={() => setModalDenunciaFormShow(true)}>
+                            <FaFlag />
+                            <small> Denunciar</small>
+                          </LinkLikeSpan>
+                        </>
+                      ) : (
+                        <>
+                          <span className="d-block d-md-none"><br /></span>
+                          <Link to={`/boicotes/${boicote.id}`}>
+                            <Button className="btn-padrao" type="button" size="sm">Ver tudo</Button>
+                          </Link>
+                        </>
+                      )}
+                  </Col>
+                </Row>
+
+              </div>
+
             </Col>
+
           </Row>
 
-        </Card.Footer>
+        </Card.Body>
       </Card>
-
+      {boicoteUnico
+        && (
+        <p className="text-justify text-muted px-2 mt-4">
+          <small>
+            Informações cadastradas sob responsabilidade dos usuários.
+            O Boicote.App não se responsabiliza por qualquer tipo de
+            informações cadastradas. Caso não esteja de acordo com alguma
+            informação, denuncie o boicote ou comentário que a contém para que analisemos.
+          </small>
+        </p>
+        )}
     </div>
   );
 };
@@ -267,37 +290,55 @@ export default Boicote;
 const LinkLikeSpan = styled.span`
   cursor: pointer;
   margin-right: .5em;
+  color: ${secondaryColor}!important;
   &:hover {
-    color: lightgrey!important;
+    color: ${primaryColor}!important;
   }
 `;
 
-const SpanInlineBlock = styled.span`
-  display: block;
-`;
-
-const ArrowsDiv = styled.div`
-  float: left;
-  text-align: center;
+const Title = styled.h4`
+  color: ${primaryColor}!important;
+  transition: 0.3s ease-out!important;
+  &:hover {
+    color: ${secondaryColor}!important;
+  }
 `;
 
 const ArrowUp = styled(FaArrowUp)`
-  color: ${(props) => props.voto && '#FF7F50'};
+  color: ${(props) => (props.voto ? orange : grayColor)};
   cursor: pointer;
 `;
 
 const ArrowDown = styled(FaArrowDown)`
-  color: ${(props) => props.voto === 0 && '#FF7F50'};
+  color: ${(props) => (props.voto === 0 ? orange : grayColor)};
   cursor: pointer;
 `;
 
-const BoicoteTitle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const BoicoteLink = styled(Link)`
-  color: #fff;
-  margin: 0 .5em 0 .5em;
+const MarcaDiv = styled(Col)`
+  // color: #FF6666;
+  border: 2px solid #FF6666!important;
+  min-height: 70px;
+  // border-radius: 1.5rem;
+  &::before, &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    background: #fff;
+  }
+  &::before {
+    top: -0.3em;
+    bottom: -0.3em;
+    left: 1em;
+    right: 1em;
+  }
+  &::after{
+    left: -0.3em;
+    right: -0.3em;
+    top: 1em;
+    bottom: 1em;
+  }
+  > span {
+    position: relative;
+    z-index: 1;
+  }
 `;

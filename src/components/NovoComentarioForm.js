@@ -10,7 +10,7 @@ function NovoComentarioForm({
   loading, setNome, setEmail, setComentario, nome, email, comentario, comentar,
 }) {
   return (
-    <Card bg="secondary" border="dark">
+    <Card className="p-2 border-0 shadow">
       <Card.Body className="mt-2 pb-0 px-4">
         <Form>
 
@@ -23,7 +23,7 @@ function NovoComentarioForm({
             <Col md={6}>
               <Form.Group className="mb-0" controlId="formBasicEmail">
                 <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Seu e-mail" />
-                <SmallStyled>
+                <SmallStyled className="text-muted">
                   Seu e-mail não será exibido.
                 </SmallStyled>
               </Form.Group>
@@ -33,9 +33,9 @@ function NovoComentarioForm({
           <Row>
             <Col>
               <Form.Group controlId="formBasicNome.ControlTextarea1">
-                <Form.Label>Comentário:</Form.Label>
+                <Form.Label className="text-secondary">Comentário:</Form.Label>
                 <Form.Control as="textarea" value={comentario} onChange={(e) => setComentario(e.target.value)} rows={2} />
-                <SmallStyled>
+                <SmallStyled className="text-muted">
                   Máximo 255 caracteres.
                 </SmallStyled>
               </Form.Group>
@@ -45,11 +45,11 @@ function NovoComentarioForm({
         </Form>
 
       </Card.Body>
-      <Card.Footer className="text-right">
+      <Card.Footer className="text-right bg-white">
         {loading
           ? <LoadingPequeno />
           : (
-            <Button onClick={(e) => comentar(e)} variant="dark" type="submit">
+            <Button onClick={(e) => comentar(e)} className="btn-padrao" type="submit">
               Enviar
             </Button>
           )}
