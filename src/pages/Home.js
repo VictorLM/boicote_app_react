@@ -17,18 +17,16 @@ const Home = () => (
   <>
     <Jumbo>
       <JumboTitle className={`text-center text-primary zoom-hover ${window.innerWidth <= 576 ? 'display-4' : 'display-3'}`}>
-        Consumir é um ato
-        <br />
-        Político
+        Consumir é um ato Político
       </JumboTitle>
       <JumboSubTitle className="text-center text-gray">Pratique o consumo consciente</JumboSubTitle>
     </Jumbo>
 
     <hr />
 
-    <h1 className="text-center my-5 header">
-      COMO FUNCIONA?
-    </h1>
+    <h2 className="text-center my-5 header">
+      Como funciona?
+    </h2>
 
     <Row className="">
       <Col sm={12} md={4} className="mb-4">
@@ -141,7 +139,7 @@ const Jumbo = styled(Jumbotron)`
 
 const JumboTitle = styled.h1`
   font-family: 'Poppins', sans-serif;
-  font-weight: bold;
+  font-weight: 700;
 `;
 
 const JumboSubTitle = styled.h2`

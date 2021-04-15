@@ -1,17 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Nav, Navbar, Image } from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap';
 import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 import styled from 'styled-components';
 import Menu from './Menu';
-import Logo from '../../assets/images/logo-png-sm.png';
-import { primaryColor } from '../../config/colors';
+import { primaryColor, secondaryColor } from '../../config/colors';
 
 const Header = () => (
   <HeaderStyled expand="lg">
     <Navbar.Brand className="py-1">
       <Link to="/">
-        <Image src={Logo} rounded className="my-1" />
+        <LogoHeader className="zoom-hover">
+          boicote
+          <span>.app</span>
+        </LogoHeader>
       </Link>
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -52,5 +54,20 @@ const MenuStyledNavLink = styled(Nav.Link)`
       || props.facebook && '#3b5998!important'
       || props.instagram && '#E1306C!important'
 };
+  }
+`;
+
+const LogoHeader = styled.h3`
+  padding: .5rem .5rem 0 0;
+  color: ${primaryColor} !important;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700 !important;
+  cursor: pointer;
+  &:hover{
+    color: ${primaryColor} !important;
+  }
+  & > span {
+    color: ${secondaryColor} !important;
+    font-weight: 500 !important;
   }
 `;

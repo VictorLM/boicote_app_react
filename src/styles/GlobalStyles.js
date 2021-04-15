@@ -18,6 +18,7 @@ export default createGlobalStyle`
   }
   html, body, #root {
     height: 100%;
+    scroll-behavior: smooth;
   }
   .container-main{
     min-height: 100%;

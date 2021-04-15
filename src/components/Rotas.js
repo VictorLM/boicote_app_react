@@ -12,7 +12,10 @@ import Pagina404 from '../pages/Pagina404';
 
 function Rotas() {
   //
-  ReactGA.initialize(process.env.REACT_APP_GA4_UNIVERSAL_ID);
+
+  if (process.env.NODE_ENV === 'production') {
+    ReactGA.initialize(process.env.REACT_APP_GA4_UNIVERSAL_ID);
+  }
 
   function googleAnalytics() {
     ReactGA.pageview(window.location.pathname + window.location.search);
