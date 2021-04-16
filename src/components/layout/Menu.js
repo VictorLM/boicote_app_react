@@ -15,6 +15,7 @@ const Menu = () => (
 export default Menu;
 
 const MenuStyled = styled(Link)`
+  font-size: .85em;
   color: ${grayColor}!important;
   padding-right: 1rem!important;
   padding-left: 1rem!important;

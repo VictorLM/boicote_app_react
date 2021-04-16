@@ -8,7 +8,7 @@ import { primaryColor, secondaryColor } from '../../config/colors';
 
 const Header = () => (
   <HeaderStyled expand="lg">
-    <Navbar.Brand className="py-1">
+    <Navbar.Brand className="py-1 pr-2">
       <Link to="/">
         <LogoHeader className="zoom-hover">
           boicote
