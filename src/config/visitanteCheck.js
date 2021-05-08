@@ -15,7 +15,7 @@ async function visitanteCheck() {
   if (visitanteId === undefined) {
     try {
       const response = await axios.get('/visitantes/novo-visitante', { withCredentials: false });
-      Cookies.set('visitanteId', response.data, { domain: dominio, expires: 1825 });
+      Cookies.set('visitanteId', response.data, { domain: dominio, expires: 1825 }); // 5 anos
     } catch (err) {
       // TODO?
       // console.error(err);

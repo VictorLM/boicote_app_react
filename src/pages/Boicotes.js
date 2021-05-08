@@ -139,7 +139,7 @@ function Boicotes() {
       <p className="text-center text-muted">
         {homePage
           ? (
-            'Veja abaixo os últimos Boicote cadastrados. Para visualizar todos, '
+            'Veja abaixo os últimos boicotes cadastrados. Para visualizar todos, '
             + 'selecione a opção Boicotes no menu localizado no topo da página.'
           ) : (
             'Para visualizar todas as informações do boicote, clique no título ou no botão Ver tudo.'
